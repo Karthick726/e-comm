@@ -1,0 +1,90 @@
+.full-height-background {
+  position: relative;
+  background-image: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.4)),
+    url(../../../../Assets/Images/login.png);
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: cover;
+  min-height: 100vh; /* Full screen height */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+}
+
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.3); /* Optional dark overlay */
+  z-index: 1;
+}
+
+.login-form {
+  position: relative;
+  z-index: 2;
+  background-color: rgba(255, 255, 255, 0.8);
+  backdrop-filter: blur(8px);
+  border-radius: 8px;
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  width: 100%;
+  max-width: 400px;
+  padding: 20px 30px;
+}
+
+.form-button button {
+  width: 100%;
+}
+
+.form-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 20px;
+}
+
+.text-center {
+  text-align: center;
+}
+
+.form {
+  width: 87%;
+  margin: 0 auto;
+  color: #000;
+}
+
+.form-button {
+  margin-top: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .login-form {
+    padding: 15px 20px;
+    max-width: 350px;
+  }
+}
+
+@media (max-width: 480px) {
+  .login-form {
+    padding: 10px;
+    max-width: 300px;
+  }
+
+  .form {
+    width: 90%;
+  }
+}
+
+@media (max-width: 320px) {
+  .login-form {
+    max-width: 250px;
+    padding: 8px;
+  }
+
+  .form {
+    width: 100%;
+  }
+}

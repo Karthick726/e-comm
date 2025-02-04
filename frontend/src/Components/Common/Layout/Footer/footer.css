@@ -1,0 +1,84 @@
+.ssfooter {
+background-color: #192436;
+}
+
+.footerstart {
+  color: white;
+  text-align: center;
+}
+
+.footerstart .footthanks {
+  font-size: 25px;
+  font-weight: 600;
+  padding-top: 20px;
+  font-family: "Playfair Display", serif;
+}
+
+.footerstart .footquestions {
+  font-size: 18px;
+  font-weight: 500;
+  font-family: "Playfair Display", serif;
+}
+
+
+.footerlinks h5 {
+  color: white;
+}
+
+.companydetails {
+  display: flex;
+  justify-content: space-between;
+}
+
+
+.terms-privacy a {
+  color: #8c9da7;
+  text-decoration: none;
+  font-family: "Barlow", sans-serif;
+}
+
+.footersections .quicklinks {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.footersections .quicklinks li {
+  margin-top: 5px;
+
+}
+
+.footersections .quicklinks li a:hover{
+    transform: translateX(5px); 
+    transition: transform 0.3s ease;
+    /* color: red; */
+    
+}
+
+.footaddress,
+.footmail,
+.footphone {
+  font-family: "Barlow", sans-serif;
+  color: #8c9da7;
+}
+
+.footersections .quicklinks a {
+  text-decoration: none;
+}
+
+.footabout {
+  font-family: "Barlow", sans-serif;
+  color: #8c9da7;
+}
+
+.shruiken {
+  width: 18px;
+  height: 18px;
+}
+
+@media only screen and (min-width: 1024px) {
+  .footersections {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+}
