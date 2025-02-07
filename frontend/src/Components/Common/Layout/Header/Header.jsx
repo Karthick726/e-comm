@@ -33,16 +33,16 @@ const Header = () => {
         setContactInfo(response.data[0]);
       }
     } catch (err) {
-      toast.error("Failed to fetch contact details");
+     console.log(err)
     }
   };
 
-  const protectHeader=["/login"]
+  const protectHeader=["/account"]
 
   return (
     <>
       {/* Header Section */}
-      <header className={`header container-fluid  ${isSticky ? "sticky" : ""}`}>
+      <header className={`headers container-fluid  ${isSticky ? "sticky" : ""}`}>
         <div className="header-container">
           {/* Logo and Search Bar */}
           <div className="header-left">
@@ -87,7 +87,7 @@ const Header = () => {
          
             <div  className={`header-icons ${protectHeader.includes(location.pathname) ? "protect" : ""}`}>
               <div className="icon-card">
-                <Link to="/login">
+                <Link to="/account">
                   <FaUserAlt className="icon" />
                   <span>Account</span>
                 </Link>

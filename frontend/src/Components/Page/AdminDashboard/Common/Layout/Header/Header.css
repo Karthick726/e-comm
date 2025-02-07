@@ -1,0 +1,28 @@
+
+.sidebar {
+    display: block;
+  }
+  
+  @media (max-width: 1010px) {
+    .sidebar {
+      display: none;
+      width: 250px;
+      left: 0;
+      z-index: 1000;
+      background-color: #fff;
+      box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+    }
+    .show{
+        display: block !important;
+    }
+  
+    .sidebar.open {
+      display: block;
+    }
+  
+ 
+  }
+  
+  .toggle-sidebar-btn {
+    display: none;
+  }

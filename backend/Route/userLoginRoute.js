@@ -1,7 +1,7 @@
 const express = require("express");
 const router = express.Router();
 const user=require('../Contorller/userLoginController');
-const VerifyToken = require("./VerifyToken/VerifyToken");
+const {VerifyToken} = require("./VerifyToken/VerifyToken");
 
 
 router.post('/login',user.userLogin);
@@ -18,6 +18,11 @@ router.get("/get-user",VerifyToken,user.getUser);
 
 router.post("/update-profile",VerifyToken,user.updateProfile)
 
+
+router.get('/:token',user.getToken);
+
+
+router.post("/updatePassword",user.updatePassword)
 
 
 

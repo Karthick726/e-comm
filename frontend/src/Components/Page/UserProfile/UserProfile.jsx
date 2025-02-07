@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, useContext } from "react";
 import Header from "../../Common/Layout/Header/Header";
 import client from "../../Common/Client/Client";
 import UpdateProfile from "./UpdateProfile";
@@ -6,11 +6,15 @@ import { useDispatch, useSelector } from "react-redux";
 import { fetchUser } from "../../redux/userSlice";
 import { FaUserCircle, FaBoxOpen } from 'react-icons/fa';
 import profile from '../../../Assets/Images/profile.png'
+import { UserContext } from "../Home/UserLogin/UserContext";
+import { useNavigate } from "react-router-dom";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
+  const navigate=useNavigate()
   const { user } = useSelector((state) => state.user);
   const [activeTab, setActiveTab] = useState("profile");
+const { userDetails } = useContext(UserContext);
 
   useEffect(() => {
     dispatch(fetchUser());
@@ -18,7 +22,14 @@ const UserProfile = () => {
 
   console.log("user", user);
 
+  useEffect(() => {
+    if (userDetails?.role === "admin") {
+      navigate("/admin");
+    }
+  }, [userDetails, navigate]);
+
   return (
+ 
     <div>
       <Header />
       <div className="user-container" style={{ backgroundColor: "#f0f0f0" }}>

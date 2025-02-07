@@ -8,6 +8,12 @@ import ScrollTop from "./Components/Common/ScrollTop";
 import ScrollBar from "./Components/Common/framer/Scrollbar";
 
 import {  UserProvider } from "./Components/Page/Home/UserLogin/UserContext";
+import { ForgetPassword } from "./Components/Page/Home/UserLogin/ForgetPassword";
+import ResetPassword from "./Components/Page/Home/UserLogin/ResetPassword";
+import AdminDashboard from "./Components/Page/AdminDashboard/AdminDashboard";
+import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
+import Products from "./Components/Page/AdminDashboard/Pages/Products";
+import Contact from "./Components/Page/AdminDashboard/Pages/Contact";
 
 
 const Home = lazy(() => import("./Components/Page/Home/Home"));
@@ -53,7 +59,7 @@ function App() {
           }
         />
           <Route
-          path="/login"
+          path="/account"
           element={
             <Suspense fallback={<Spinner open={true} />}>
               <Userlogin />
@@ -68,6 +74,25 @@ function App() {
             </Suspense>
           }
         />
+          <Route
+          path="/user/forgetpassword"
+          element={
+            <Suspense fallback={<Spinner open={true} />}>
+              <ForgetPassword />
+            </Suspense>
+          }
+        />
+        <Route
+        path="/reset-password/:token"
+        element={
+          <Suspense fallback={<Spinner open={true} />}>
+            <ResetPassword />
+          </Suspense>
+          }
+          />
+          <Route path="/admin" element={<ProtectedRoute role="admin"><AdminDashboard /></ProtectedRoute>} />
+          <Route path="/service-add" element={<ProtectedRoute role="admin"><Products /></ProtectedRoute>} />
+          <Route path="/admin/contact" element={<ProtectedRoute role="admin"><Contact /></ProtectedRoute>} />
         <Route
           path="*"
           element={

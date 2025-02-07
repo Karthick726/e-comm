@@ -1,10 +1,11 @@
 import React, { Fragment, useState } from "react";
 import { TextField, Button, Typography, Link, Box } from "@mui/material";
 import Grid from "@mui/material/Grid2";
-import forget from "../../../../src/Assets/Images/forget.jpg";
+import forget from "../../../../Assets/Images/forget.jpg";
 import toast from "react-hot-toast";
-import client from "../../Common/Client/Client";
 import { useNavigate } from "react-router-dom";
+import client from "../../../Common/Client/Client";
+import { IoMdArrowRoundBack } from "react-icons/io";
 
 export const ForgetPassword = () => {
   const [email, setEmail] = useState("");
@@ -12,9 +13,9 @@ export const ForgetPassword = () => {
   const [error, setError] = useState({
     email: "",
   });
+
   const errorMessage = (fieldName, fieldValue) => {
     let message = "";
-
     if (fieldName === "email") {
       const emailRegex =
         /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]{2,}@[a-zA-Z-]+\.[a-zA-Z-]{2,}$/;
@@ -26,18 +27,16 @@ export const ForgetPassword = () => {
         message = "";
       }
     }
-
     return { message: message };
   };
+
   const handleEmailChange = (e) => {
     const { name, value } = e.target;
     const err = errorMessage(name, value).message;
-
     setError((prevError) => ({
       ...prevError,
       [name]: err,
     }));
-
     setEmail(value);
   };
 
@@ -50,7 +49,7 @@ export const ForgetPassword = () => {
     } else {
       try {
         const response = await client.post(
-          "user/forgetpassword",
+          "/user/forgetpassword",
           { email: email },
           { withCredentials: true }
         );
@@ -60,82 +59,29 @@ export const ForgetPassword = () => {
         }
       } catch (err) {
         console.log(err);
-        toast.error(err.response.data.message)
+        toast.error(err.response.data.message);
       }
     }
   };
 
   return (
     <Fragment>
-      <Box
-        display="flex"
-        justifyContent="center"
-        alignItems="center"
-        height="100vh"
-        bgcolor="white"
-        px={2}
-      >
-        <Grid
-          container
-          justifyContent="center"
-          alignItems="center"
-          spacing={2}
-          sx={{ width: "100%", maxWidth: "1200px" }}
-        >
-          <Grid
-            item
-            size={{
-              xs: 12,
-              sm: 6,
-            }}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <img
-              src={forget}
-              alt="Forgot Password"
-              style={{
-                width: "100%",
+      
+      <Box className="forget-container">
+        <Grid container className="forget-grid">
+       
 
-                height: "auto",
-              }}
-            />
+          <Grid item xs={12} sm={4} className="forget-image">
+            <img src={forget} alt="Forgot Password" className="forget-image" />
           </Grid>
-
-          <Grid
-            item
-            size={{
-              xs: 12,
-              sm: 6,
-            }}
-            display="flex"
-            justifyContent="center"
-            alignItems="center"
-          >
-            <Box
-              textAlign="center"
-              width="100%"
-              maxWidth="350px"
-              p={4}
-              sx={{
-                backgroundColor: "#fff",
-                borderRadius: "10px",
-                boxShadow: "0 4px 15px rgba(0, 0, 0, 0.1)",
-              }}
-            >
-              <Typography
-                variant="h5"
-                gutterBottom
-                sx={{
-                  color: "rgba(0,134,243,1)",
-                  fontWeight: "bold",
-                  marginBottom: "20px",
-                }}
-              >
+          <Grid item xs={12} sm={4} className="forget-form">
+            <Box className="forget-box">
+              <Typography variant="h5" className="forget-title">
                 Forgot Your Password?
               </Typography>
-
+              <Typography variant="body1" className="forget-subtitle">
+          No worries, enter your email and we’ll send a reset link.
+        </Typography>
               <TextField
                 label="Enter Your Email"
                 variant="outlined"
@@ -153,43 +99,30 @@ export const ForgetPassword = () => {
                     "Tab",
                   ];
                   const allowedCharPattern = /^[0-9a-z._@-]$/;
-
-                  if (
-                    !allowedKeys.includes(e.key) &&
-                    !allowedCharPattern.test(e.key)
-                  ) {
+                  if (!allowedKeys.includes(e.key) && !allowedCharPattern.test(e.key)) {
                     e.preventDefault();
                   }
                 }}
                 helperText={error.email ? error.email : ""}
                 error={!!error.email}
-                sx={{
-                  marginBottom: "20px",
-                  backgroundColor: "#F7F9FC",
-                  borderRadius: "5px",
-                  "& .MuiOutlinedInput-root": {
-                    borderRadius: "5px",
-                  },
-                }}
+                className="forget-input"
               />
-
               <Button
                 variant="contained"
                 fullWidth
                 onClick={handleResetPassword}
-                sx={{
-                  backgroundColor: "#007BFF",
-                  color: "#fff",
-                  padding: "10px 0",
-                  fontWeight: "bold",
-                  width: "100%",
-                  "&:hover": {
-                    backgroundColor: "#0056b3",
-                  },
-                }}
+                className="forget-button"
               >
                 Reset Password
               </Button>
+              <Typography style={{
+                color: "#227cf7",
+                fontSize: "16px",
+              }} onClick={()=>{
+                navigate('/account')
+              }}>
+              <IoMdArrowRoundBack/> Back To Home 
+              </Typography>
             </Box>
           </Grid>
         </Grid>

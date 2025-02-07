@@ -22,4 +22,17 @@ const VerifyToken = async (req, res, next) => {
   }
 };
 
-module.exports = VerifyToken;
+const authorize = (roles = []) => {
+  return (req, res, next) => {
+
+    if (!roles.includes(req.cookies.role)) {
+      return res.status(403).json({ message: "Forbidden: Access Denied" });
+    }
+    next();
+  };
+};
+
+module.exports = {
+  VerifyToken,
+  authorize
+};

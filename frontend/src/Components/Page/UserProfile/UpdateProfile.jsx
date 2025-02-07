@@ -58,6 +58,8 @@ const UpdateProfile = () => {
     }
   }, [user]);
 
+  console.log(formData)
+
   //handleBlur
   const handleBlur = (e) => {
     const { name, value } = e.target;
@@ -289,7 +291,9 @@ const UpdateProfile = () => {
       <h2>Update Profile</h2>
       <div className="personalDetails">
         <Box component="form" sx={{ mt: 2 }}>
-          <Typography variant="h6" sx={{ mb: 2 }}>
+          <Typography variant="h6" sx={{ mb: 2 }} style={{
+            color:"black"
+          }}>
             Personal Details{" "}
             <span onClick={toggleEdit} style={{
               cursor: 'pointer',
@@ -414,7 +418,9 @@ const UpdateProfile = () => {
             />
           </div>
           <div className="address">
-            <Typography variant="h6" sx={{ mb: 2 }}>
+            <Typography variant="h6" sx={{ mb: 2 }}  style={{
+            color:"black"
+          }}> 
               Contact Details{" "}
               <span 
             style={{

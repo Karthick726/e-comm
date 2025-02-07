@@ -4,6 +4,8 @@ const bcrypt = require("bcryptjs");
 const signupModel = require("../Schema/userLogin");
 const secreteKey = require("../Config/config");
 const transporter = require("../Nodemailer/nodeMailer");
+const fs = require("fs");
+const path = require("path");
 
 function generateOTP() {
   let generateOtp = Math.floor(Math.random() * 1000000);
@@ -14,7 +16,7 @@ function generateOTP() {
 
 exports.userSignup = async (req, res, next) => {
   try {
-    const { username, password, email } = req.body;
+    const { username, password, email,role } = req.body;
     if (!req.body) {
       return res.status(400).json({ message: "Request body is empty" });
     }
@@ -29,15 +31,23 @@ exports.userSignup = async (req, res, next) => {
       const newUser = new signupModel({
         username,
         otp,
-        createdAt: Date.now(),
+        role
       });
       await newUser.save();
+      const otpTemplate = path.join(
+        __dirname,
+        "../mailTemplate/emailTemplate.html"
+      );
+
+      let otpVerfiy = fs.readFileSync(otpTemplate, "utf8");
+
+      otpVerfiy = otpVerfiy.replace("{email}", email).replace("{otp}",otp);
 
       const mailOptions = {
         from: "lingamkarthick89@gmail.com",
         to: email,
         subject: "Your OTP Code",
-        text: `Your OTP is: ${otp}`,
+        html: otpVerfiy,
       };
 
       const info = await transporter.sendMail(mailOptions);
@@ -81,15 +91,23 @@ exports.userLogin = async (req, res) => {
     }
     const token = jwt.sign({ id: user._id }, secreteKey, { expiresIn: "7d" });
     res
-      .status(200)
-      .cookie("token", token, {
-        httpOnly: false, // Allow JavaScript to access (for debugging)
-        secure: false, // Must be false on localhost (Only true for HTTPS)
-        sameSite: "lax", // Allows cookies across subdomains
-        path: "/", // Ensures cookie is accessible site-wide
-        maxAge: 7 * 24 * 60 * 60 * 1000,
-      })
-      .json({ success: true, token, user });
+    .status(200)
+    .cookie("token", token, {
+      httpOnly: false,
+      secure: false,
+      sameSite: "lax",
+      path: "/", 
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
+    })
+    .cookie("role", user.role, {
+      httpOnly: false,
+      secure: false, 
+      sameSite: "lax", 
+      path: "/", 
+      maxAge: 7 * 24 * 60 * 60 * 1000, 
+    })
+    .json({ success: true, token, role: user.role, user });
+  
   } catch (error) {
     res.status(302).json({ message: error.message });
   }
@@ -114,6 +132,15 @@ exports.adduser = async (req, res) => {
           otp: "",
           email: email,
           username: username,
+          address:{
+            doorno: "",
+            street: "",
+            landmark: "",
+            area: "",
+            district: "",
+            state: "",
+            pincode: "",
+          }
         },
         {
           new: true,
@@ -150,11 +177,21 @@ exports.resendOtp = async (req, res) => {
         }
       );
 
+
+      const otpTemplate = path.join(
+        __dirname,
+        "../mailTemplate/emailTemplate.html"
+      );
+
+      let otpVerfiy = fs.readFileSync(otpTemplate, "utf8");
+
+      otpVerfiy = otpVerfiy.replace("{email}", email).replace("{otp}",otp);
+
       const mailOptions = {
         from: "lingamkarthick89@gmail.com",
         to: email,
-        subject: "Your OTP Code",
-        text: `Your OTP is: ${otp}`,
+        subject: "Resend OTP Code",
+       html:otpVerfiy
       };
 
       const info = await transporter.sendMail(mailOptions);
@@ -192,26 +229,37 @@ exports.forgetPassword = async (req, res) => {
     if (!user) {
       return res.status(404).json({ message: "Email not found" });
     } else {
+      const restPasswordTemplate = path.join(
+        __dirname,
+        "../mailTemplate/restPasswordTemplate.html"
+      );
+
+      let restpassword = fs.readFileSync(restPasswordTemplate, "utf8");
+
       const resetToken = crypto.randomBytes(32).toString("hex");
 
       user.resetPasswordToken = crypto
         .createHash("sha256")
         .update(resetToken)
         .digest("hex");
-      user.resetPasswordExpires = Date.now() + 3600000;
+
+      user.resetPasswordExpires = Date.now() + 15 * 60 * 1000; // 15 minutes
 
       await user.save();
 
       const resetUrl = `http://localhost:3000/reset-password/${resetToken}`;
 
+      // Replace placeholders with actual values
+      restpassword = restpassword
+        .replace("{username}", user.username) // Replace username placeholder
+        .replace("{email}", user.email) // Replace email placeholder
+        .replace("{resetUrl}", resetUrl); // Replace resetUrl placeholder
+
       const mailOptions = {
         to: user.email,
-        from: "noreply@yourdomain.com",
+        from: "lingamkarthick89@gmail.com",
         subject: "Password Reset Request",
-        text: `You are receiving this because you (or someone else) requested a password reset for your account.
-      Please click on the following link to reset your password:
-      ${resetUrl}
-      If you did not request this, please ignore this email.`,
+        html: restpassword,
       };
 
       await transporter.sendMail(mailOptions);
@@ -223,6 +271,50 @@ exports.forgetPassword = async (req, res) => {
   } catch (err) {
     console.log(err);
     res.status(500).json({ message: err.message });
+  }
+};
+
+exports.getToken = async (req, res) => {
+  try {
+    const { token } = req.params;
+
+    // Hash the received token before comparing
+    const hashedToken = crypto.createHash("sha256").update(token).digest("hex");
+
+    const user = await signupModel.findOne({
+      resetPasswordToken: hashedToken,
+      resetPasswordExpires: { $gt: Date.now() },
+    });
+
+    if (!user) {
+      return res.status(400).json({ message: "Invalid or expired token" });
+    }
+
+    res.status(200).json(user.email);
+  } catch (err) {
+    console.error("Error verifying token:", err);
+    res.status(500).json({ message: "Internal server error" });
+  }
+};
+
+exports.updatePassword = async (req, res) => {
+  try {
+    const { password, email } = req.body;
+
+    const hashpassword = await bcrypt.hash(password, 10);
+    const user = await signupModel.findOne({ email });
+    if (!user) {
+      return res.status(400).json({ message: "User not found" });
+    }
+    user.password = hashpassword;
+    user.resetPasswordExpires = "";
+    user.resetPasswordToken = "";
+    await user.save();
+
+    res.status(200).json({ message: "Password updated successfully" });
+  } catch (err) {
+    console.error("Error updating password:", err);
+    res.status(500).json({ message: "Internal server error" });
   }
 };
 
@@ -265,13 +357,13 @@ exports.updateProfile = async (req, res) => {
         email: email,
         phoneNumber: phoneNumber,
         address: {
-         doorno: doorno,
-          area:area,
-          landmark:landmark,
-          street:street,
-          district:district,
-          state:state,
-          pincode:pincode,
+          doorno: doorno,
+          area: area,
+          landmark: landmark,
+          street: street,
+          district: district,
+          state: state,
+          pincode: pincode,
         },
       },
       {

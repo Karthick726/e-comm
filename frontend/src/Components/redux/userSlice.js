@@ -8,11 +8,15 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async (_, { dispatch
       const response = await client.get("/user/get-user", { withCredentials: true });
   
       dispatch(setUser(response.data));
+
+      console.log("userssss",response.data)
   
     } catch (error) {
       return rejectWithValue(error.response?.data || "Failed to fetch user data");
     }
   });
+
+
 
   export const updateUserProfile = createAsyncThunk("user/updateProfile", async (updatedData, { dispatch, rejectWithValue }) => {
 

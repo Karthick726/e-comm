@@ -25,6 +25,7 @@ import UserProfile from "../../UserProfile/UserProfile";
 
 const Userlogin = () => {
   const [otpSent, setOtpSent] = useState(false);
+  const { setUser } = useContext(UserContext);
   const [loading,setLoading]=useState(false)
   const [showPassword, setShowPassword] = useState(false);
   const [signshowPassword, setSignShowPassword] = useState(false);
@@ -226,12 +227,19 @@ const Userlogin = () => {
       );
       if (response.status === 200) {
         Cookies.set("token", response.data.token, { expires: 7 });
-
-        navigate("/");
+        Cookies.set("role",response.data.role,{expires:7});
+        setUser({ token: response.data.token, role: response.data.role });
         setEmail("");
         setPassword("");
         setLoading(false)
         toast.success("Login Success!")
+
+        if (response.data.role === "admin") {
+          navigate("/admin");
+        } else {
+          navigate("/");
+        }
+        
       }
     } catch (err) {
       setLoading(false)
@@ -243,6 +251,8 @@ const Userlogin = () => {
       setPassword("");
     }
   };
+
+
 
   const signup = async () => {
     try {
