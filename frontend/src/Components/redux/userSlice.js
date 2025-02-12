@@ -12,7 +12,10 @@ export const fetchUser = createAsyncThunk("user/fetchUser", async (_, { dispatch
       console.log("userssss",response.data)
   
     } catch (error) {
+      toast.error("Don't try to change cookies")
+      window.location.reload();
       return rejectWithValue(error.response?.data || "Failed to fetch user data");
+
     }
   });
 

@@ -6,10 +6,10 @@ const cookieParser = require("cookie-parser");
 const bodyParser = require("body-parser");
 
 
-//Import Route
+// //Import Route
 const userSignup=require("./Route/userLoginRoute")
-const auth=require("./Route/userRoute")
 const contact=require("./Route/adminContactRoute")
+const product=require("./Route/productRoute")
 
 app.use(cookieParser());
 app.use(express.json());
@@ -29,8 +29,7 @@ app.get("/",(req,res)=>{
 
 app.use("/user",userSignup)
 app.use("/contact",contact)
-
-app.use("/auth",auth)
+app.use("/product",product)
 
 
 

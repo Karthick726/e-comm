@@ -7,7 +7,7 @@ export const UserContext = createContext();
 
 export const UserProvider = ({ children }) => {
      const [user, setUser] = useState(null);
-  const [userData, setUserData] = useState({
+    const [userData, setUserData] = useState({
     username: "",
     password: "",
     email: "",
@@ -28,8 +28,12 @@ export const UserProvider = ({ children }) => {
     const token = Cookies.get("token");
     const role = Cookies.get("role");
 
+    console.log("tokenss and user", token, role)
+
     if (token && role) {
       setUser({ token, role });
+    }else if(token === "undefined" || role ==="undefined"){
+      window.location.reload();
     }
 
   },[])

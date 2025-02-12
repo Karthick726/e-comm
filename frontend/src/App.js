@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from "react";
+import React, { Suspense, lazy, useEffect } from "react";
 import { Routes, Route, BrowserRouter } from "react-router-dom";
 import { Toaster } from "react-hot-toast";
 import './App.css'
@@ -14,6 +14,7 @@ import AdminDashboard from "./Components/Page/AdminDashboard/AdminDashboard";
 import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import Products from "./Components/Page/AdminDashboard/Pages/Products";
 import Contact from "./Components/Page/AdminDashboard/Pages/Contact";
+import { Product } from "./Components/Page/Products/Product";
 
 
 const Home = lazy(() => import("./Components/Page/Home/Home"));
@@ -22,6 +23,8 @@ const Userlogin = lazy(() => import("./Components/Page/Home/UserLogin/Userlogin"
 const Otp = lazy(() => import("./Components/Page/Home/UserLogin/Otp"));
 
 function App() {
+ 
+
  
 
   return (
@@ -55,6 +58,14 @@ function App() {
           element={
             <Suspense fallback={<Spinner open={true} />}>
               <Home />
+            </Suspense>
+          }
+        />
+        <Route
+          path="/products"
+          element={
+            <Suspense fallback={<Spinner open={true} />}>
+              <Product />
             </Suspense>
           }
         />

@@ -25,6 +25,8 @@ const { userDetails } = useContext(UserContext);
   useEffect(() => {
     if (userDetails?.role === "admin") {
       navigate("/admin");
+    }else if(userDetails?.role==="null"){
+      window.location.reload();
     }
   }, [userDetails, navigate]);
 
