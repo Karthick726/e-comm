@@ -16,6 +16,7 @@ exports.addProducts = async (req, res) => {
       originalprice,
       specification,
       feature,
+      category
     } = req.body;
     console.log(specification);
     const images = req.files;
@@ -50,6 +51,7 @@ exports.addProducts = async (req, res) => {
       sepcification: specification,
       feature,
       percentage,
+      category
     });
 
     await product.save();

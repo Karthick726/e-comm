@@ -19,14 +19,6 @@ import Loader from "../Common/Layout/Loader/Loader";
 
 
 
-const categories = {
-  "Laptop & Computers": ["Apple", "Dell", "HP", "Lenovo", "Asus"],
-  "Smartphones & Tablets": ["Apple", "Samsung", "OnePlus", "Xiaomi"],
-  "Headphones & Earphones": ["Sony", "JBL", "Boat", "Bose"],
-  "Smartwatches & Wearables": ["Apple", "Samsung", "Fitbit", "Garmin"],
-  "Cameras & Accessories": ["Canon", "Nikon", "Sony", "Fujifilm"],
-  "Power Banks & Chargers": ["Anker", "Mi", "Samsung", "Realme"],
-};
 
 const Products = () => {
   const [feature, setFeature] = useState([
@@ -41,6 +33,8 @@ const Products = () => {
       error: "",
     },
   ]);
+
+  const [category,setCategory]=useState("")
 
   const [loading,setLoading]=useState(false)
   const [productName, setProductName] = useState("");
@@ -59,7 +53,10 @@ const Products = () => {
 
   });
 
-
+//  
+const handleCatChange = (event) => {
+  setCategory(event.target.value );
+};
 
   //specification
   const addspecificationField = () => {
@@ -311,15 +308,28 @@ const validateForm=()=>{
     toast.error("Please fill  all the fields")
     isValid = false;
   }else if(errors.brandName !=="" || errors.description !=="" || errors.image !=="" || errors.offerprice !=="" || errors.productName !==""){
-    toast.error("Please check 1 error  the fields")
+    toast.error("Please check  error  the fields")
     isValid = false;
   }else if(feature.some((value)=>value.error !=="")){
-    toast.error("Please check 2 error  the fields")
+    toast.error("Please check  error  the fields")
     isValid = false;
   }else if(specification.some((value)=>value.error !=="")){
-    toast.error("Please check  3 error  the fields")
+    toast.error("Please check   error  the fields")
     isValid = false;
 
+  }else if(category===""){
+    toast.error("Please select category  the fields");
+    isValid = false;
+  }else if(Number(originalprice) > 100000){
+    toast.error("Please enter the correct price  the fields");
+    isValid = false;
+
+  }else if (Number(offerprice)>Number(originalprice)){
+    toast.error(" Offer Price must be lower than original price");
+    isValid = false;
+  }else if (images.length > 7){
+    toast.error("Please select only 7 the image");
+    isValid = false;
   }else{
     isValid= true;
   }
@@ -327,6 +337,7 @@ const validateForm=()=>{
   return isValid
 
 }
+
 
   //submit
   const handleSubmit =async()=>{
@@ -337,6 +348,7 @@ const validateForm=()=>{
       setLoading(true)
       const formData=new FormData();
       formData.append("productname",productName);
+      formData.append("category",category)
       formData.append("brandname",brandName);
       formData.append("offerprice",offerprice);
       formData.append("originalprice",originalprice);
@@ -365,6 +377,7 @@ const validateForm=()=>{
           setOriginalPrice("");
           setDescription("");
           setImages([]);
+          setCategory("")
           setFeature([{
             value: "",
             error: "",
@@ -391,6 +404,8 @@ const validateForm=()=>{
 
   }
 
+
+  console.log(category)
   return (
     <div>
       <Header />
@@ -423,11 +438,33 @@ const validateForm=()=>{
                 >
                   Add New Product
                 </Typography>
+                <FormControl fullWidth>
+        <InputLabel id="demo-simple-select-label">category</InputLabel>
+        <Select
+          labelId="demo-simple-select-label"
+          id="demo-simple-select"
+          value={category}
+          label="category"
+          onChange={handleCatChange}
+        >
+          <MenuItem value={"Laptop & Computers"}>Laptop & Computers</MenuItem>
+          <MenuItem value={"Smartphones & Tablets"}>Smartphones & Tablets</MenuItem>
+          <MenuItem value={"Headphones & Earphones"}>Headphones & Earphones</MenuItem>
+          <MenuItem value={"Smartwatches & Wearables"}>Smartwatches & Wearables</MenuItem>
+          <MenuItem value={"Cameras & Accessories"}>Cameras & Accessories</MenuItem>
+          <MenuItem value={"Power Banks & Chargers"}>Power Banks & Chargers</MenuItem>
+        </Select>
+      </FormControl>
 
                 <TextField
                   label="Product Name"
                   name="productName"
                   fullWidth
+                  slotProps={{
+                    htmlInput: {
+                      maxLength: 90,
+                    },
+                  }}
                   margin="normal"
                   value={productName}
                   onChange={handleChange}
@@ -460,6 +497,11 @@ const validateForm=()=>{
                 />
                 <TextField
                   label="Brand Name"
+                  slotProps={{
+                    htmlInput: {
+                      maxLength: 20,
+                    },
+                  }}
                   name="brandName"
                   fullWidth
                   margin="normal"
@@ -495,6 +537,11 @@ const validateForm=()=>{
                 <TextField
                   label="Original Price"
                   name="originalprice"
+                  slotProps={{
+                    htmlInput: {
+                      maxLength: 6,
+                    },
+                  }}
                   fullWidth
                   margin="normal"
                   value={originalprice}
@@ -531,6 +578,12 @@ const validateForm=()=>{
                   label="Offer Price"
                   name="offerprice"
                   fullWidth
+                  required
+                  slotProps={{
+                    htmlInput: {
+                      maxLength: 5,
+                    },
+                  }}
                   margin="normal"
                   value={offerprice}
                   onChange={handleChange}
