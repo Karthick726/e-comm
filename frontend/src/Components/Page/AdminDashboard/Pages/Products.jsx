@@ -17,6 +17,17 @@ import toast from "react-hot-toast";
 import client from "../../../Common/Client/Client";
 import Loader from "../Common/Layout/Loader/Loader";
 
+
+
+const categories = {
+  "Laptop & Computers": ["Apple", "Dell", "HP", "Lenovo", "Asus"],
+  "Smartphones & Tablets": ["Apple", "Samsung", "OnePlus", "Xiaomi"],
+  "Headphones & Earphones": ["Sony", "JBL", "Boat", "Bose"],
+  "Smartwatches & Wearables": ["Apple", "Samsung", "Fitbit", "Garmin"],
+  "Cameras & Accessories": ["Canon", "Nikon", "Sony", "Fujifilm"],
+  "Power Banks & Chargers": ["Anker", "Mi", "Samsung", "Realme"],
+};
+
 const Products = () => {
   const [feature, setFeature] = useState([
     {
@@ -47,6 +58,9 @@ const Products = () => {
     offerprice:"",
 
   });
+
+
+
   //specification
   const addspecificationField = () => {
     if (specification.length >= 10) {
