@@ -11,6 +11,7 @@ import toast from "react-hot-toast";
 
 const UpdateProfile = () => {
   const dispatch = useDispatch();
+  const [loading,setLoading]=useState(false)
   const [isEditing, setIsEditing] = useState(false);
   const [contactEdit, setContactEdit] = useState(false);
   const { user } = useSelector((state) => state.user);
@@ -243,15 +244,19 @@ const UpdateProfile = () => {
       return;
     }
 
+    setLoading(true)
+
     try {
       const response = await dispatch(updateUserProfile(formData)).unwrap();
   
       if (response) {
+        setLoading(false)
         toast.success("Profile updated successfully!",);
         setIsEditing(false)
         setContactEdit(false)
       }
     } catch (error) {
+      setLoading(false)
       toast.error(error || "Failed to update profile",);
     }
   };
