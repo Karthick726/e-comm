@@ -272,8 +272,11 @@ const Userlogin = () => {
       }
     } catch (err) {
       setLoading(false)
+      if(err.response.status===400){
+        toast.error(err.response.data.message)
+      }
       console.log(err)
-      toast.error("Try again later")
+     
     }
   };
 

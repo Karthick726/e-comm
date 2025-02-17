@@ -5,6 +5,9 @@ import { FaSearch, FaUserAlt, FaShoppingCart,FaTimes } from "react-icons/fa";
 import toast from "react-hot-toast";
 import client from "../../Client/Client";
 import logo from "../../../../Assets/Images/Logo.jpg";
+import { FaHeart } from "react-icons/fa";
+
+
 
 const Header = () => {
   const [isSticky, setIsSticky] = useState(false);
@@ -98,6 +101,14 @@ const Header = () => {
                   <span>Cart</span>
                 </Link>
               </div>
+              <div className="icon-card">
+                <Link to="/wish-list">
+                  {/*
+                  <span>Cart</span> */}
+ <FaHeart className="icon" />
+
+                </Link>
+              </div>
             </div>
           </div>
         </div>
@@ -113,6 +124,9 @@ const Header = () => {
           <li><NavLink to="/products" className="nav-link">Products</NavLink></li>
           <li><NavLink to="/about-us" className="nav-link">About Us</NavLink></li>
           <li><NavLink to="/contact-us" className="nav-link">Contact</NavLink></li>
+          <li><NavLink to="/account" className="nav-link">Account</NavLink></li>
+          <li><NavLink to="/card" className="nav-link">Card</NavLink></li>
+          <li><NavLink to="/wish-list" className="nav-link">Wish List</NavLink></li>
         </ul>
       </nav>
     </>

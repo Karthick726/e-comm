@@ -13,6 +13,11 @@ import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import Products from "./Components/Page/AdminDashboard/Pages/Products";
 import Contact from "./Components/Page/AdminDashboard/Pages/Contact";
 import { Product } from "./Components/Page/Products/Product";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchWishList } from "./Components/redux/wishList";
+import WishList from "./Components/Page/WishList/WishList";
+import { fetchaddToCart } from "./Components/redux/addtoCardSlice";
+import SingleProducts from "./Components/Page/Products/SingleProducts/SingleProducts";
 
 const Home = lazy(() => import("./Components/Page/Home/Home"));
 const NotFound = lazy(() => import("./Components/Common/NotFound/NotFound"));
@@ -22,6 +27,17 @@ const Userlogin = lazy(() =>
 const Otp = lazy(() => import("./Components/Page/Home/UserLogin/Otp"));
 
 function App() {
+  const dispatch = useDispatch();
+  const { wishList } = useSelector((state) => state.wishList);
+  const {addToCart}=useSelector((state)=>state.addToCart)
+
+  useEffect(() => {
+    dispatch(fetchWishList());
+    dispatch(fetchaddToCart());
+  }, [dispatch]);
+
+
+  console.log("wish",wishList)
   return (
     <BrowserRouter>
       <Toaster
@@ -83,6 +99,22 @@ function App() {
             element={
               <Suspense fallback={<Spinner open={true} />}>
                 <ForgetPassword />
+              </Suspense>
+            }
+          />
+           <Route
+            path="/wish-list"
+            element={
+              <Suspense fallback={<Spinner open={true} />}>
+                <WishList />
+              </Suspense>
+            }
+          />
+             <Route
+            path="/product/:id"
+            element={
+              <Suspense fallback={<Spinner open={true} />}>
+                <SingleProducts />
               </Suspense>
             }
           />

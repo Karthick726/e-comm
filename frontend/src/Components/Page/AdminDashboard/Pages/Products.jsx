@@ -237,7 +237,7 @@ const handleCatChange = (event) => {
     }
 
     if (fieldName === "brandName") {
-      if (fieldValue.length < 3) {
+      if (fieldValue.length < 2) {
         message = "Please enter a valid Brand name";
       } else {
         message = "";
@@ -462,7 +462,7 @@ const validateForm=()=>{
                   fullWidth
                   slotProps={{
                     htmlInput: {
-                      maxLength: 90,
+                      maxLength: 100,
                     },
                   }}
                   margin="normal"
@@ -725,7 +725,7 @@ const validateForm=()=>{
                           variant="outlined"
                           slotProps={{
                             htmlInput: {
-                              maxLength: 100,
+                              maxLength: 200,
                             },
                           }}
                           rows={2}

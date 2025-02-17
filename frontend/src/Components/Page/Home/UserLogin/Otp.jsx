@@ -94,6 +94,9 @@ const Otp = () => {
       }
     } catch (err) {
       setLoading(false);
+      if(err.response.status===500){
+        toast.error("Invalid OTP");
+      }
       console.log(err);
     }
   };
@@ -139,7 +142,7 @@ const Otp = () => {
       }
     } catch (err) {
       setLoading(false);
-      console.log(err);
+console.log(err);
 
     }
   };

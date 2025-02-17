@@ -10,6 +10,8 @@ const bodyParser = require("body-parser");
 const userSignup=require("./Route/userLoginRoute")
 const contact=require("./Route/adminContactRoute")
 const product=require("./Route/productRoute")
+const wishList=require("./Route/WishListRoute")
+const addtocart=require("./Route/AddtocartRoute")
 
 app.use(cookieParser());
 app.use(express.json());
@@ -30,6 +32,8 @@ app.get("/",(req,res)=>{
 app.use("/user",userSignup)
 app.use("/contact",contact)
 app.use("/product",product)
+app.use("/wishlist",wishList)
+app.use("/addtocart",addtocart)
 
 
 

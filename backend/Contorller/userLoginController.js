@@ -146,7 +146,7 @@ exports.adduser = async (req, res) => {
       );
       res.status(200).json(loginUser);
     } else {
-      res.status(400).json({ message: "Invalid OTP" });
+      res.status(500).json({ message: "Invalid OTP" });
     }
   } catch (err) {
     console.log(err);
