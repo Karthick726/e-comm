@@ -1,5 +1,5 @@
 const express=require("express");
-const { addWishList, getWishList, updateWishList } = require("../Contorller/WishListController");
+const { addWishList, getWishList, updateWishList, getUserWishlist } = require("../Contorller/WishListController");
 const { VerifyToken } = require("./VerifyToken/VerifyToken");
 
 const router=express.Router();
@@ -11,6 +11,9 @@ router.post("/delete-wishlist",VerifyToken,updateWishList);
 
 
 router.get("/get-wishlist",VerifyToken,getWishList);
+
+
+router.get("/get-userwishlist",VerifyToken,getUserWishlist)
 
 
 

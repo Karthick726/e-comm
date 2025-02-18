@@ -1,4 +1,5 @@
 const WishList = require("../Schema/WishListSchema");
+const mongoose = require("mongoose");
 
 exports.addWishList = async (req, res) => {
   try {
@@ -87,6 +88,57 @@ exports.getWishList = async (req, res) => {
     } else {
       return res.status(404).json({ message: "No wishlist found" });
     }
+  } catch (err) {
+    console.error("Error getting wishlist:", err);
+    res.status(500).json({ message: "Server Error" });
+  }
+};
+
+exports.getUserWishlist = async (req, res) => {
+  try {
+    const userId = req.user.id;
+    const userObjectId = new mongoose.Types.ObjectId(userId);
+    const userWishList = await WishList.findOne({ userId });
+
+    if (!userWishList) {
+      return res.status(404).json({ message: "Wishlist not found" });
+    }
+
+    const wishListProduct = await WishList.aggregate([
+      {
+        $match: {
+          userId: userObjectId,
+        },
+      },
+      {
+        $unwind: "$wishlist",
+      },
+      {
+        $lookup: {
+          from: "products",
+          localField: "wishlist.ProductId",
+          foreignField: "_id",
+          as: "product_Info",
+        },
+      },
+      {
+        $unwind: "$product_Info",
+      },
+
+      {
+        $project: {
+          _id: 0,
+          userId: 0,
+          wishlist: 0,
+          __v: 0,
+        },
+      },
+    ]);
+    console.log(wishListProduct);
+
+    return res
+      .status(200)
+      .json({ message: "Wishlist retrieved", wishlist: wishListProduct });
   } catch (err) {
     console.error("Error getting wishlist:", err);
     res.status(500).json({ message: "Server Error" });

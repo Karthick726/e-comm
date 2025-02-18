@@ -32,8 +32,6 @@ export const UserProvider = ({ children }) => {
 
     if (token && role) {
       setUser({ token, role });
-    }else if(token === "undefined" || role ==="undefined"){
-      window.location.reload();
     }
 
   },[])

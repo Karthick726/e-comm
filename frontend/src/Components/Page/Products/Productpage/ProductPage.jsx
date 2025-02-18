@@ -19,7 +19,8 @@ import { FaHeart } from "react-icons/fa";
 import { UserContext } from "../../Home/UserLogin/UserContext";
 import { useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
-import { addToCartPost } from "../../../redux/addtoCardSlice";
+import { addToCartPost, fetchaddToCart } from "../../../redux/addtoCardSlice";
+import { fetchUser } from "../../../redux/userSlice";
 
 const ProductPage = () => {
   const navigate = useNavigate();
@@ -36,12 +37,12 @@ const ProductPage = () => {
   const [sortBy, setSortBy] = useState("popularity");
   const productsPerPage = 6;
 
-
-
   useEffect(() => {
     dispatch(fetchProducts());
+    dispatch(fetchWishList());
+    dispatch(fetchaddToCart());
+    dispatch(fetchUser);
   }, [dispatch]);
-
 
   const uniqueCategories = [...new Set(products.map((p) => p.category))];
 
@@ -174,10 +175,9 @@ const ProductPage = () => {
     }
   };
 
-
-  const handleNavigate=(id)=>{
-    navigate(`/product/${id}`)
-  }
+  const handleNavigate = (id) => {
+    navigate(`/product/${id}`);
+  };
   return (
     <div className="product-container">
       <div className="filter-products">
@@ -470,9 +470,16 @@ const ProductPage = () => {
                 <div class="rating">Free delivery</div>
               </div>
               <div className="button-container">
-                <button className="buy-button button" onClick={()=>handleNavigate(value._id)}>View Product</button>
                 <button
-                 disabled={addToCart?.addToCart?.some((item) => item.ProductId === value._id)}
+                  className="buy-button button"
+                  onClick={() => handleNavigate(value._id)}
+                >
+                  View Product
+                </button>
+                <button
+                  disabled={addToCart?.addToCart?.some(
+                    (item) => item.ProductId === value._id
+                  )}
                   className={`cart-button button ${
                     addToCart?.addToCart?.some(
                       (item) => item.ProductId === value._id
