@@ -462,7 +462,7 @@ const validateForm=()=>{
                   fullWidth
                   slotProps={{
                     htmlInput: {
-                      maxLength: 100,
+                      maxLength: 200,
                     },
                   }}
                   margin="normal"
