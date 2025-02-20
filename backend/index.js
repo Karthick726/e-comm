@@ -17,7 +17,7 @@ const order=require("./Route/OrderRoute")
 app.use(cookieParser());
 app.use(express.json());
 const corsOptions = {
-  origin: ['http://localhost:3001', 'http://localhost:3000','https://e-comm-frontend-ashy.vercel.app'], // Add allowed origins here
+  origin: ['http://localhost:3001', 'http://localhost:3000','https://e-comm-frontend-seven.vercel.app'], // Add allowed origins here
   methods: ['GET', 'POST', 'PUT', 'DELETE'],
   credentials: true,
 };
