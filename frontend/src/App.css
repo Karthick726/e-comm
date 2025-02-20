@@ -332,10 +332,7 @@
   transition: all 0.3s ease-in-out; */
 }
 
-.icon-card:hover {
-  /* transform: scale(1.05);
-  box-shadow: 3px 3px 12px rgba(0, 0, 0, 0.2); */
-}
+
 
 /* Icon Styling */
 .icon-card .icon {
@@ -509,9 +506,7 @@ padding: 30px 20px;
 border-radius: 10px;
 
 }
-.MuiStepLabel-label{
-color: white !important;
-}
+
 .details-form{
 margin: 30px 100px;  
 display: flex;
@@ -1249,7 +1244,9 @@ gap: 30px;
   margin-bottom: 1rem;
   background-color: rgb(228, 225, 225);
 }
-
+.buttonsubmit{
+  width: 100px !important;
+}
 .card .image-container img {
   width: 168px;
   height: 236px;
@@ -1760,4 +1757,153 @@ align-items: center;
 .wish>button{
   width: 200px;
   height: 70px;
+}
+
+.cart-item {
+  display: flex;
+  align-items: center;
+}
+
+.cart-btn {
+  background: none;
+  border: none;
+  font-size: 24px;
+  cursor: pointer;
+  transition: transform 0.2s ease;
+}
+
+
+.cart-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.cart-quantity {
+  font-size: 18px;
+  font-weight: bold;
+  min-width: 30px;
+  text-align: center;
+  border: 1px solid lightgray;
+}
+
+
+.user-info {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 10px;
+  align-items: center;
+  font-family: 'Poppins', sans-serif;
+}
+
+.user-info span {
+  font-size: 16px;
+  color: #333;
+}
+
+.user-info strong {
+  color: #05468b;
+}
+
+
+.MuiBox-root .css-2royc9{
+  flex-direction: column;
+}
+
+
+
+.payment-container {
+  background: #f9f9f9;
+  padding: 20px;
+  border-radius: 8px;
+  border: 1px solid #ddd;
+  max-width: 400px;
+  margin: auto;
+  text-align: center;
+}
+
+.payment-container label {
+  font-size: 18px;
+  font-weight: 600;
+  color: #333;
+}
+
+.payment-container .MuiRadio-root {
+  color: #007bff; /* Blue color for radio */
+}
+
+.payment-container .Mui-checked {
+  color: #ff4500 !important; /* Change selected radio color */
+}
+
+.payment-container .MuiFormLabel-root {
+  font-size: 20px;
+  font-weight: bold;
+  color: #222;
+  margin-bottom: 10px;
+}
+
+
+.checkout-container {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+  padding: 20px;
+  
+}
+
+.address-option {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 12px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  background: #f9f9f9;
+  transition: all 0.3s ease;
+}
+
+.address-option:hover {
+  border-color: #007bff;
+  background: #eef5ff;
+}
+
+.details-forms,
+.details-form {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 15px;
+}
+
+.details-forms .test,
+.details-form .tet {
+  flex: 1;
+  min-width: 250px;
+}
+
+.test, .tet {
+  width: 100%;
+}
+
+button {
+  padding: 10px 16px;
+  border-radius: 6px;
+  font-size: 16px;
+  font-weight: 500;
+}
+
+button[disabled] {
+  background: #ccc;
+  cursor: not-allowed;
+}
+
+@media (max-width: 768px) {
+  .details-forms,
+  .details-form {
+    flex-direction: column;
+  }
+
+  .test, .tet {
+    width: 100%;
+  }
 }

@@ -30,17 +30,28 @@ export const fetchaddToCart = createAsyncThunk("addtocard/fetchAddrocard", async
   });
 
 
-
-//   export const deleteWishList = createAsyncThunk("wishList/deleteWishList", async (id, { dispatch, rejectWithValue }) => {
-//     try {
-//       const response = await client.post("/wishlist/delete-wishlist", {id}, { withCredentials: true });
+  export const addToCartUpdate = createAsyncThunk("addtocart/updateAddtocart", async (id, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await client.post("/addtocart/update-addtocart", {id}, { withCredentials: true });
   
-//       dispatch(setWishList(response.data));
-//       return response.data;
-//     } catch (error) {
-//       return rejectWithValue(error.response?.data || "Failed to update profile");
-//     }
-//   });
+      dispatch(setAddToCard(response.data));
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to update add to cart");
+    }
+  });
+
+
+  export const deleteAddToCart = createAsyncThunk("addtocart/deleteAddToCart ", async (id, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await client.post("/addtocart/deleteAddtocart", {id}, { withCredentials: true });
+  
+      dispatch(setAddToCard(response.data));
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to update profile");
+    }
+  });
 
 const addToCartSlice = createSlice({
   name: "addToCart",

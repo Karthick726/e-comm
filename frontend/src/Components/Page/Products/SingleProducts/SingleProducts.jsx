@@ -228,7 +228,13 @@ const SingleProducts = () => {
                   >
                     <FaShoppingCart /> Add to Cart
                   </button>
-                  <button className="buy-now">
+                  <button className="buy-now" onClick={()=>{
+                    navigate("/checkout",{
+                      state:{
+                        userCarts:details
+                      }
+                    })
+                  }}>
                     <BsLightningFill /> Buy Now
                   </button>
                 </div>

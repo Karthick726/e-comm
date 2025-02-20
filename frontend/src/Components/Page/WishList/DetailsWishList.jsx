@@ -26,7 +26,6 @@ const DetailsWishList = () => {
     useEffect(()=>{
         const token=Cookies.get("token")
           
-    console.log("karthick",token)
 
             if(token===undefined){
                 navigate("/account")

@@ -13,11 +13,13 @@ import ProtectedRoute from "./Components/ProtectedRoute/ProtectedRoute";
 import Products from "./Components/Page/AdminDashboard/Pages/Products";
 import Contact from "./Components/Page/AdminDashboard/Pages/Contact";
 import { Product } from "./Components/Page/Products/Product";
+import Card from "./Components/Page/Cart/Cart"
 import { useDispatch, useSelector } from "react-redux";
 import { fetchWishList } from "./Components/redux/wishList";
 import WishList from "./Components/Page/WishList/WishList";
 import { fetchaddToCart } from "./Components/redux/addtoCardSlice";
 import SingleProducts from "./Components/Page/Products/SingleProducts/SingleProducts";
+import CheckOut from "./Components/Page/CheckOut/CheckOut";
 
 const Home = lazy(() => import("./Components/Page/Home/Home"));
 const NotFound = lazy(() => import("./Components/Common/NotFound/NotFound"));
@@ -102,6 +104,7 @@ function App() {
               </Suspense>
             }
           />
+
            <Route
             path="/wish-list"
             element={
@@ -110,6 +113,23 @@ function App() {
               </Suspense>
             }
           />
+                   <Route
+            path="/cart"
+            element={
+              <Suspense fallback={<Spinner open={true} />}>
+                <Card />
+              </Suspense>
+            }
+          />
+           <Route
+            path="/checkout"
+            element={
+              <Suspense fallback={<Spinner open={true} />}>
+                <CheckOut />
+              </Suspense>
+            }
+          />
+
              <Route
             path="/product/:id"
             element={

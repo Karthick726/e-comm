@@ -563,123 +563,125 @@ const UpdateProfile = () => {
                 onKeyDown={handleDown}
               />
             </div>
-            <div className="details-form">
-              <TextField
-                disabled={!contactEdit}
-                label="District"
-                name="district"
-                value={formData.district}
-                onChange={handleFormChange}
-                onBlur={handleBlur}
-                error={!!error.district}
-                helperText={error.district}
-                required
-                inputProps={{ maxLength: 20 }}
-                className="tet"
-                onKeyDown={(e) => {
-                  handleDown(e);
-                  const allowedKeys = [
-                    "Backspace",
-                    "ArrowLeft",
-                    "Space",
-                    "ArrowRight",
-                    "Delete",
-                    "Tab",
-                  ];
-                  const allowedCharPattern = /^[a-zA-Z/]$/;
-                  const isSpaceKey = e.key === " ";
-
-                  // Check if the pressed key is not allowed
-                  if (
-                    !allowedKeys.includes(e.key) &&
-                    !allowedCharPattern.test(e.key) &&
-                    !isSpaceKey
-                  ) {
-                    e.preventDefault(); // Prevent the default action of the disallowed key
-                  }
-                }}
-              />
-
-              <TextField
-                disabled={!contactEdit}
-                label="State"
-                name="state"
-                type="text"
-                value={formData.state}
-                onChange={handleFormChange}
-                onBlur={handleBlur}
-                error={!!error.state}
-                helperText={error.state}
-                required
-                inputProps={{ maxLength: 20 }}
-                className="tet"
-                onKeyDown={(e) => {
-                  handleDown(e);
-                  const allowedKeys = [
-                    "Backspace",
-                    "ArrowLeft",
-                    "Space",
-                    "ArrowRight",
-                    "Delete",
-                    "Tab",
-                  ];
-                  const allowedCharPattern = /^[a-zA-Z/]$/;
-                  const isSpaceKey = e.key === " ";
-
-                  // Check if the pressed key is not allowed
-                  if (
-                    !allowedKeys.includes(e.key) &&
-                    !allowedCharPattern.test(e.key) &&
-                    !isSpaceKey
-                  ) {
-                    e.preventDefault(); // Prevent the default action of the disallowed key
-                  }
-                }}
-              />
-
-              <TextField
-                disabled={!contactEdit}
-                label="Pincode"
-                name="pincode"
-                value={formData.pincode}
-                onChange={handleFormChange}
-                onBlur={handleBlur}
-                error={!!error.pincode}
-                helperText={error.pincode}
-                inputProps={{ maxLength: 6 }}
-                required
-                className="tet"
-                onKeyDown={(e) => {
-                  handleDown(e);
-                  const allowedKeys = [
-                    "Backspace",
-                    "ArrowLeft",
-                    "ArrowRight",
-                    "Delete",
-                    "Tab",
-                  ];
-                  const allowedCharPattern = /^[0-9]$/;
-
-                  // Check if the pressed key is not allowed
-                  if (
-                    !allowedKeys.includes(e.key) &&
-                    !allowedCharPattern.test(e.key)
-                  ) {
-                    e.preventDefault(); // Prevent the default action of the disallowed key
-                  }
-                }}
-              />
-            </div>
+         <div className="details-form">
+                                  <TextField
+                                   disabled={!contactEdit}
+                                    label="District"
+                                    name="district"
+                                    value={formData.district}
+                                    onChange={handleFormChange}
+                                    onBlur={handleBlur}
+                                    error={!!error.district}
+                                    helperText={error.district}
+                                    required
+                                    inputProps={{ maxLength: 20 }}
+                                    className="tet"
+                                    onKeyDown={(e) => {
+                                      handleDown(e);
+                                      const allowedKeys = [
+                                        "Backspace",
+                                        "ArrowLeft",
+                                        "Space",
+                                        "ArrowRight",
+                                        "Delete",
+                                        "Tab",
+                                      ];
+                                      const allowedCharPattern = /^[a-zA-Z/]$/;
+                                      const isSpaceKey = e.key === " ";
+  
+                                      // Check if the pressed key is not allowed
+                                      if (
+                                        !allowedKeys.includes(e.key) &&
+                                        !allowedCharPattern.test(e.key) &&
+                                        !isSpaceKey
+                                      ) {
+                                        e.preventDefault(); // Prevent the default action of the disallowed key
+                                      }
+                                    }}
+                                  />
+  
+                                  <TextField
+                                   disabled={!contactEdit}
+                                    label="State"
+                                    name="state"
+                                    type="text"
+                                    value={formData.state}
+                                    onChange={handleFormChange}
+                                    onBlur={handleBlur}
+                                    error={!!error.state}
+                                    helperText={error.state}
+                                    required
+                                    inputProps={{ maxLength: 20 }}
+                                    className="tet"
+                                    onKeyDown={(e) => {
+                                      handleDown(e);
+                                      const allowedKeys = [
+                                        "Backspace",
+                                        "ArrowLeft",
+                                        "Space",
+                                        "ArrowRight",
+                                        "Delete",
+                                        "Tab",
+                                      ];
+                                      const allowedCharPattern = /^[a-zA-Z/]$/;
+                                      const isSpaceKey = e.key === " ";
+  
+                                      // Check if the pressed key is not allowed
+                                      if (
+                                        !allowedKeys.includes(e.key) &&
+                                        !allowedCharPattern.test(e.key) &&
+                                        !isSpaceKey
+                                      ) {
+                                        e.preventDefault(); // Prevent the default action of the disallowed key
+                                      }
+                                    }}
+                                  />
+  
+                                  <TextField
+                                   disabled={!contactEdit}
+                                    label="Pincode"
+                                    name="pincode"
+                                    value={formData.pincode}
+                                    onChange={handleFormChange}
+                                    onBlur={handleBlur}
+                                    error={!!error.pincode}
+                                    helperText={error.pincode}
+                                    inputProps={{ maxLength: 6 }}
+                                    required
+                                    className="tet"
+                                    onKeyDown={(e) => {
+                                      handleDown(e);
+                                      const allowedKeys = [
+                                        "Backspace",
+                                        "ArrowLeft",
+                                        "ArrowRight",
+                                        "Delete",
+                                        "Tab",
+                                      ];
+                                      const allowedCharPattern = /^[0-9]$/;
+  
+                                      // Check if the pressed key is not allowed
+                                      if (
+                                        !allowedKeys.includes(e.key) &&
+                                        !allowedCharPattern.test(e.key)
+                                      ) {
+                                        e.preventDefault(); // Prevent the default action of the disallowed key
+                                      }
+                                    }}
+                                  />
+                                </div>
           </div>
           { isEditing  && (
             <Box sx={{ display: "flex", flexDirection: "row", pt: 2 }}>
               <Button
+              className="buttonsubmit"
                 color="inherit"
                 variant="contained"
                 sx={{ mr: 1 }}
-                onClick={handleSubmit}
+           onClick={handleSubmit}
               style={{
-                backgroundColor:"blue"
+                backgroundColor:"blue",
+             width:"100px",
               }}
               >
                 Submit
@@ -696,7 +698,8 @@ const UpdateProfile = () => {
                 sx={{ mr: 1 }}
                 onClick={handleSubmit}
                 style={{
-                  backgroundColor:"blue"
+                  backgroundColor:"blue",
+                  width:"100px",
                 }}
               >
                 Submit
