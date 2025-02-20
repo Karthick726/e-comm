@@ -11,7 +11,8 @@ const userSignup=require("./Route/userLoginRoute")
 const contact=require("./Route/adminContactRoute")
 const product=require("./Route/productRoute")
 const wishList=require("./Route/WishListRoute")
-const addtocart=require("./Route/AddtocartRoute")
+const addtocart=require("./Route/AddtocartRoute") 
+const order=require("./Route/OrderRoute") 
 
 app.use(cookieParser());
 app.use(express.json());
@@ -34,6 +35,7 @@ app.use("/contact",contact)
 app.use("/product",product)
 app.use("/wishlist",wishList)
 app.use("/addtocart",addtocart)
+app.use("/order",order)
 
 
 

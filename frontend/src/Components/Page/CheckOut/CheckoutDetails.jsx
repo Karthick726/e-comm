@@ -17,11 +17,14 @@ import {
   addToCartPost,
   addToCartUpdate,
   deleteAddToCart,
+  deleteWholeAddToCart,
 } from "../../redux/addtoCardSlice";
 import { IoMdAddCircleOutline } from "react-icons/io";
 import { Radio, FormControlLabel, FormControl, FormLabel } from "@mui/material";
 import { MdDelete } from "react-icons/md";
 import { GrSubtractCircle } from "react-icons/gr";
+import { postUserOrder } from "../../redux/userOrderSlice";
+import { deleteWishList } from "../../redux/wishList";
 
 const steps = [
   "User Details",
@@ -33,7 +36,7 @@ const steps = [
 const CheckoutDetails = ({ userCarts }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [button,setButton]=useState(true)
+  const [button, setButton] = useState(true);
   const [quantity, setQuantity] = useState(1);
   const { user } = useSelector((state) => state.user);
   const { userCart } = useSelector((state) => state.userCart);
@@ -72,7 +75,7 @@ const CheckoutDetails = ({ userCarts }) => {
   };
 
   const handleBack = () => {
-    setButton(true)
+    setButton(true);
     setActiveStep((prevActiveStep) => prevActiveStep - 1);
   };
   const userTotalPrice = userCart?.reduce(
@@ -265,70 +268,69 @@ const CheckoutDetails = ({ userCarts }) => {
     if (userTotalPrice > 100000) {
       toast.error("Your total price is more than 1,00,000");
     } else {
-      setButton(false)
+      setButton(false);
       handleNext();
-     
     }
   };
 
-  const handleConfirmOrder=async(e)=>{
+  const handleConfirmOrder = async (e) => {
     e.preventDefault();
     toast.dismiss();
     if (userCarts._id) {
-      if(useNewAddress===true){
+      if (useNewAddress === true) {
+        const formDatas = {
+          productId: [userCarts._id],
+          quantity: [quantity],
+          totalPrice: [quantity * userCarts.offerPrice],
+          address: `${formData.doorno},${formData.street},${formData.street},${formData.area},${formData.district},${formData.state}-${formData.pincode}(${formData.landmark})`,
+        };
 
-        const formDatas={
-          productId:userCarts._id,
-          quantity:quantity,
-          totalPrice:quantity * userCarts.offerPrice,
-          address:`${formData.doorno},${formData.street},${formData.street},${formData.area},${formData.district},${formData.state}-${formData.pincode}(${formData.landmark})`,
-
-        }
-
-        console.log(formDatas);
-
-      }else{
-        const formDatas={
-          productId:userCarts._id,
-          quantity:quantity,
-          totalPrice:quantity * userCarts.offerPrice,
-          address:`${user.address.doorno},${user.address.street},${user.address.street},${user.address.area},${user.address.district},${user.address.state}-${user.address.pincode}(${user.address.landmark})`,
-
-        }
-
-        console.log(formDatas);
+        await dispatch(postUserOrder(formDatas));
+        await dispatch(deleteAddToCart(userCarts._id));
+        navigate("/account");
+      } else {
+        const formDatas = {
+          productId: [userCarts._id],
+          quantity: [quantity],
+          totalPrice: [quantity * userCarts.offerPrice],
+          address: `${user.address.doorno},${user.address.street},${user.address.street},${user.address.area},${user.address.district},${user.address.state}-${user.address.pincode}(${user.address.landmark})`,
+        };
+        await dispatch(postUserOrder(formDatas));
+        await dispatch(deleteAddToCart(userCarts._id));
+        navigate("/account");
       }
-        
+    } else {
+      if (useNewAddress === true) {
+        const formDatas = {
+          productId: userCart?.map((value) => value.product._id),
+          quantity: userCart?.map((value) => value.addToCart.quantity),
+          totalPrice: userCart?.map(
+            (value) => value.addToCart.quantity * value.product.offerPrice
+          ),
+          address: `${formData.doorno},${formData.street},${formData.street},${formData.area},${formData.district},${formData.state}-${formData.pincode}(${formData.landmark})`,
+        };
+        await dispatch(postUserOrder(formDatas));
 
-    }else{
-      if(useNewAddress===true){
-
-        const formDatas={
-          productId:userCart?.map((value)=>value.product._id),
-          quantity:userCart?.map((value)=>value.addToCart.quantity),
-          totalPrice:userTotalPrice,
-          address:`${formData.doorno},${formData.street},${formData.street},${formData.area},${formData.district},${formData.state}-${formData.pincode}(${formData.landmark})`,
-
-        }
-
+        await dispatch(deleteWholeAddToCart());
+        navigate("/account");
         console.log(formDatas);
-
-      }else{
-        const formDatas={
-          productId:userCart?.map((value)=>value.product._id),
-          quantity:userCart?.map((value)=>value.addToCart.quantity),
-          totalPrice:userTotalPrice,
-          address:`${user.address.doorno},${user.address.street},${user.address.street},${user.address.area},${user.address.district},${user.address.state}-${user.address.pincode}(${user.address.landmark})`,
-
-        }
-
-        console.log(formDatas);
+      } else {
+        const formDatas = {
+          productId: userCart?.map((value) => value.product._id),
+          quantity: userCart?.map((value) => value.addToCart.quantity),
+          totalPrice: userCart?.map(
+            (value) => value.addToCart.quantity * value.product.offerPrice
+          ),
+          address: `${user.address.doorno},${user.address.street},${user.address.street},${user.address.area},${user.address.district},${user.address.state}-${user.address.pincode}(${user.address.landmark})`,
+        };
+        await dispatch(postUserOrder(formDatas));
+        await dispatch(deleteWholeAddToCart());
+        navigate("/account");
       }
     }
+  };
 
-  }
-
-  console.log("cart",userCart)
+  console.log("cart", userCart);
   return (
     <div className="container con  mt-2">
       <div className="row">

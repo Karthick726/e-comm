@@ -53,6 +53,19 @@ export const fetchaddToCart = createAsyncThunk("addtocard/fetchAddrocard", async
     }
   });
 
+
+  export const deleteWholeAddToCart = createAsyncThunk("addtocart/deleteWholeAddToCart ", async (_, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await client.post("/addtocart/deleteWholeAddtocart", {},{ withCredentials: true });
+  
+      dispatch(setAddToCard(response.data));
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(error.response?.data || "Failed to update profile");
+    }
+  });
+
+
 const addToCartSlice = createSlice({
   name: "addToCart",
   initialState: {
