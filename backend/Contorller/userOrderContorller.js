@@ -1,5 +1,5 @@
 const orderModel=require("../Schema/orderSchema")
-
+const mongoose = require("mongoose");
 
 
 exports.postOrder=async(req,res)=>{
@@ -51,5 +51,89 @@ try{
     res.status(500).json({ message: "Server Error" });
 }
 }
+
+exports.getOrder=async(req,res)=>{
+
+  try{
+    console.log("hii")
+    const userId=req.user.id;
+        const userObjectId = new mongoose.Types.ObjectId(userId);
+    const order=await orderModel.findOne({userId})
+    
+    if(!order){
+      return res.status(404).json({ message: "User order not found" });
+    }
+
+
+    const userOrder=await orderModel.aggregate([
+      {
+        $match:{
+          userId:userObjectId
+        }
+      },
+      {
+        $unwind:"$orderItems"
+      },
+      {
+        $lookup: {
+          from: "products",
+          localField: "orderItems.ProductId",
+          foreignField: "_id",
+          as: "product_Info",
+        },
+      },
+      {
+        $unwind:"$product_Info"
+      }
+     
+    ])
+    return res
+    .status(200)
+    .json({ message: "User order retrieved", Order: userOrder });
+
+
+
+  }catch(err){
+    console.log(err)
+    res.status(500).json({ message: "Server Error" });
+  }
+  
+}
+
+exports.cancleOrder=async(req,res)=>{
+  try{
+    const userId=req.user.id;
+    const {cancelData}=req.body
+    const userObjectId = new mongoose.Types.ObjectId(userId);
+    const order=await orderModel.findOne({userId})
+    if(!order){
+      return res.status(404).json({ message: "User order not found" });
+      }
+
+
+    const productFind=  await order.orderItems.find((value)=> value._id.toString() ===cancelData._id)
+
+    productFind.cancelDetails={
+      reason:cancelData.reason,
+      date:Date.now(),
+      message:cancelData.message
+    }
+
+    productFind.orderStatus="Cancelled"
+
+
+  const newuser = await order.save()
+  
+  res.status(200).json({
+    message: "Order cancelled successfully",
+  })
+
+  }catch(err){
+    console.log(err)
+    res.status(500).json({ message: "Server Error" });
+  }
+}
+
+
 
 

@@ -19,6 +19,19 @@ const orderModel = new mongoose.Schema({
         enum: ["Processing", "Shipped", "Delivered", "Cancelled"],
         default: "Processing",
       },
+      cancelDetails:{
+        reason:{
+          type:String
+
+        },
+        date:{
+          type:Date
+        },
+        message:{
+          type:String
+        }
+
+      },
       address: {
         type: String,
         required: true,

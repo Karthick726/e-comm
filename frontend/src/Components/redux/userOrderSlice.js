@@ -2,19 +2,19 @@ import { createSlice, createAsyncThunk } from "@reduxjs/toolkit";
 import client from "../Common/Client/Client";
 import toast from "react-hot-toast";
 
-// Async action to fetch user data
-// export const fetchUserWishList = createAsyncThunk("wishList/fetchUserWishList", async (_, { dispatch, rejectWithValue }) => {
-//     try {
-//       const response = await client.get("/wishlist/get-userwishlist", { withCredentials: true });
 
-//       dispatch(setUserWishList(response.data.wishlist));
+export const fetchUserOrder = createAsyncThunk("order/fetchUserOrder", async (_, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await client.get("/order/get-userorder", { withCredentials: true });
 
-//     } catch (error) {
+      dispatch(setUserOrder(response.data.Order));
 
-//       return rejectWithValue(error.response?.data || "Failed to fetch user  wish list data");
+    } catch (error) {
 
-//     }
-//   });
+      return rejectWithValue(error.response?.data || "Failed to fetch user order data");
+
+    }
+  });
 
 export const postUserOrder = createAsyncThunk(
   "order/postUserOrder",
@@ -34,6 +34,30 @@ export const postUserOrder = createAsyncThunk(
     } catch (error) {
       return rejectWithValue(
         error.response?.data || "Failed to post order data"
+      );
+    }
+  }
+);
+
+
+export const cancelUserOrder = createAsyncThunk(
+  "order/cancelUserOrder",
+  async (cancelData, { dispatch, rejectWithValue }) => {
+    try {
+      const response = await client.post(
+        "/order/cancel-order",
+        { cancelData },
+        { withCredentials: true }
+      );
+
+      dispatch(setUserOrder(response.data));
+      if (response.status === 200) {
+        toast.success("Order cancel successfully");
+      }
+      return response.data;
+    } catch (error) {
+      return rejectWithValue(
+        error.response?.data || "Failed to cancle order data"
       );
     }
   }

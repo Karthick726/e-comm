@@ -92,7 +92,9 @@ const DetailsWishList = () => {
 
   return (
     <div className="container con  mt-2">
-            <div className="row">
+            <div className="row" style={{
+              width:"100%"
+            }}>
                 {userWishList?.length > 0 ? (
                     userWishList.map((item, index) => (
                         <div key={index} className="col-lg-12 mb-4 ">
@@ -105,7 +107,7 @@ const DetailsWishList = () => {
                                     className="card-img-top"
                                     style={{ cursor:"pointer" }}
                                 />
-                                <div className="card-body" onClick={() => handleNavigate(item.product_Info._id)}   style={{ cursor:"pointer" }}>
+                                <div className="card-body" onClick={() => handleNavigate(item.product_Info._id)}   style={{ cursor:"pointer", width: "50%"  }}>
                                     <h5 className="card-title">{item.product_Info.productName}</h5>
                                     <p className="text-muted">Brand: {item.product_Info.brandName}</p>
                                     <p className="text-danger fw-bold">₹{item.product_Info.offerPrice}</p>

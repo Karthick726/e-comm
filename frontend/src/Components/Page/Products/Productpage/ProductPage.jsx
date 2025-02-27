@@ -35,7 +35,7 @@ const ProductPage = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const { userDetails } = useContext(UserContext);
   const [sortBy, setSortBy] = useState("popularity");
-  const productsPerPage = 6;
+  const productsPerPage = 12;
 
   useEffect(() => {
     dispatch(fetchProducts());

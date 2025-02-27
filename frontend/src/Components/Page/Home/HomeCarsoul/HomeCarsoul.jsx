@@ -1,117 +1,122 @@
-import React from "react";
-import Slider from "react-slick";
+import React, { useContext, useEffect, useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion"; // For animation
 import "./HomeCarsoul.css";
+import { fetchProducts } from "../../../redux/productSlice";
 
 const HomeCarsoul = () => {
   const navigate = useNavigate();
-  const content = [
-    {
-      id: 1,
-      image:
-        "https://www.bigcmobiles.com/media/catalog/product/cache/e19e56cdd4cf1b4ec073d4305f5db95a/v/i/vivo_y18i_gem_green_.jpg", // Background image
-      title: "Dell XPS 13",
-      description:
-        "The Dell XPS 13 is known for its stunning 13-inch display, powerful performance, and sleek design. Ideal for professionals and students alike.",
-      price: 999.99,
-    },
-    {
-      id: 2,
-      image:
-        "https://transvelo.github.io/electro-html/2.0/assets/img/1920X422/img1.jpg", // Background image
-      title: "MacBook Pro M1",
-      description:
-        "Powered by Apple’s M1 chip, this laptop offers exceptional performance, long battery life, and a gorgeous Retina display. Perfect for creative professionals.",
-      price: 1299.99,
-    },
-    {
-      id: 3,
-      image:
-        "https://transvelo.github.io/electro-html/2.0/assets/img/1920X422/img1.jpg", // Background image
-      title: "iPhone 14 Pro",
-      description:
-        "The iPhone 14 Pro features a 120Hz ProMotion OLED display, the new A16 chip, and a 48MP camera. It’s perfect for those who want top-tier performance and aesthetics.",
-      price: 1099.99,
-    },
-    {
-      id: 4,
-      image:
-        "https://transvelo.github.io/electro-html/2.0/assets/img/1920X422/img1.jpg", // Background image
-      title: "Samsung Galaxy S23",
-      description:
-        "With its 120Hz AMOLED display, Snapdragon 8 Gen 2 chip, and incredible camera capabilities, the Samsung Galaxy S23 is one of the best Android phones on the market.",
-      price: 899.99,
-    },
-    {
-      id: 5,
-      image:
-        "https://transvelo.github.io/electro-html/2.0/assets/img/1920X422/img1.jpg", // Background image
-      title: "Sony WH-1000XM5 Headphones",
-      description:
-        "Sony’s WH-1000XM5 headphones deliver industry-leading noise cancellation, fantastic sound quality, and up to 30 hours of battery life. A must-have for audiophiles.",
-      price: 349.99,
-    },
-  ];
+  const { products } = useSelector((state) => state.products);
+  const dispatch = useDispatch();
 
-  const settings = {
-    dots: false, // Disable dots
-    infinite: true,
-    fade: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    waitForAnimate: false,
+  useEffect(() => {
+    dispatch(fetchProducts());
+  }, [dispatch]);
+
+  const lastProductsByCategory = Object.values(
+    products.reduce((acc, product) => {
+      acc[product.category] = product;
+      return acc;
+    }, {})
+  );
+
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === lastProductsByCategory.length - 1 ? 0 : prevIndex + 1
+    );
+  };
+
+  const handleNavigate = (id) => {
+    navigate(`/product/${id}`);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex((prevIndex) =>
+      prevIndex === 0 ? lastProductsByCategory.length - 1 : prevIndex - 1
+    );
   };
 
   return (
-    <div className="container-fluid">
-      <Slider {...settings}>
-        {content.map((item) => (
-          <div key={item.id} className="slider-item">
-            {/* Background Image */}
+    <section className="banner-area" style={{ height: "100vh" }}>
+      <div className="container">
+        <div
+          className="row fullscreen align-items-center justify-content-start"
+          style={{ height: "100vh" }}
+        >
+          <div className="col-lg-12">
             <div
-              className="slider-background"
-              style={{ backgroundImage: ""}}
+              className="active-banner-slider"
+              style={{
+                overflow: "hidden",
+                position: "relative",
+              }}
             >
-            <div className="slider">
-
-            <motion.div
-                className="slider-content"
-                initial={{ x: -200, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
+              <div
+                className="carousel-track"
+                style={{
+                  display: "flex",
+                  transition: "transform 0.5s ease-in-out",
+                  transform: `translateX(-${currentIndex * 100}%)`,
+                }}
               >
-                <h3>{item.title}</h3>
-                <p>{item.description}</p>
-                <p>₹ {item.price}</p>
-                <div className="projects-content-btn mt-4">
-                  <button
-                    className="btn btn-primary contact-button"
-                    onClick={() => {
-                      navigate("/contact-us");
+                {lastProductsByCategory.map((product, index) => (
+                  <div
+                    key={index}
+                    className="row single-slide align-items-center d-flex"
+                    style={{
+                      minWidth: "100%",
+                      justifyContent:"space-evenly"
                     }}
                   >
-                    <span>Contact Us</span>
-                  </button>
-                </div>
-              </motion.div>
-              <motion.div
-                className="slider-image"
-                initial={{ x: 200, opacity: 0 }}
-                whileInView={{ x: 0, opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.5 }}
-              >
-                <img src={item.image} alt="image"/>
-                </motion.div>
+                    <div className="col-lg-5 col-md-6">
+                      <div className="banner-content">
+                        <h1>
+                          {product.brandName} <br />
+                          Collection!
+                        </h1>
+                        <p>{product.description.slice(0, 200)}...</p>
+                        <div className="add-bag d-flex align-items-center">
+                          <a className="add-btn" href>
+                            <span className="lnr lnr-cross" />
+                          </a>
+                          <span className="add-text text-uppercase"   onClick={() => handleNavigate(product._id)} >
+                            View Details
+                          </span>
+                        </div>
+                      </div>
+                    </div>
+                    <div className="col-lg-6">
+                      <div className="banner-img">
+                        <img
+                          className="img-fluid"
+                          src={product.image[0]}
+                          alt="product"
+                        />
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
 
-            </div>
-            
+              {/* Navigation Controls */}
+              <div className="carousel-controls">
+                <button className="carousel-btn" onClick={prevSlide}>
+                <img src="img/banner/prev.png" />
+ 
+                </button>
+                <button className="carousel-btn" onClick={nextSlide}>
+             <img src="img/banner/next.png" />
+ 
+                </button>
+              </div>
             </div>
           </div>
-        ))}
-      </Slider>
-    </div>
+        </div>
+      </div>
+    </section>
   );
 };
 

@@ -109,7 +109,7 @@ const CartDetails = () => {
                         width: "200px",
                       }}
                     />
-                    <div className="card-body" style={{ cursor: "pointer" }}>
+                    <div className="card-body" style={{ cursor: "pointer",width:"50%" }}>
                       <h5
                         className="card-title"
                         onClick={() => handleNavigate(item.product._id)}
@@ -210,7 +210,7 @@ const CartDetails = () => {
             }}
           >
             <img src={wish} />
-            <p className="text-muted">Your wishlist is empty.</p>
+            <p className="text-muted">Your cart is empty.</p>
             <button
               className="btn"
               onClick={() => navigate("/products")}

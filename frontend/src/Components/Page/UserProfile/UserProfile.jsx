@@ -8,6 +8,7 @@ import { FaUserCircle, FaBoxOpen } from 'react-icons/fa';
 import profile from '../../../Assets/Images/profile.png'
 import { UserContext } from "../Home/UserLogin/UserContext";
 import { useNavigate } from "react-router-dom";
+import Orders from "./Orders";
 
 const UserProfile = () => {
   const dispatch = useDispatch();
@@ -61,10 +62,7 @@ const { userDetails } = useContext(UserContext);
   <main className="user-content" style={{ backgroundColor: "#fff" }}>
     {activeTab === "profile" && <UpdateProfile />}
     {activeTab === "orders" && (
-      <div>
-        <h2>Your Orders</h2>
-        <p>View your past orders here.</p>
-      </div>
+     <Orders/>
     )}
   </main>
 </div>
