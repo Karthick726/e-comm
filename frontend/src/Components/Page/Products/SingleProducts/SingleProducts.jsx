@@ -15,6 +15,7 @@ import {
   updateWishList,
 } from "../../../redux/wishList";
 import { SlInfo } from "react-icons/sl";
+import Footer from "../../../Common/Layout/Footer/Footer";
 
 const SingleProducts = () => {
   const navigate = useNavigate();
@@ -436,6 +437,7 @@ const SingleProducts = () => {
           <p>Loading...</p>
         </div>
       )}
+
     </div>
   );
 };

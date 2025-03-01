@@ -17,6 +17,7 @@ import {
   deleteAddToCart,
 } from "../../redux/addtoCardSlice";
 import toast from "react-hot-toast";
+import Footer from "../../Common/Layout/Footer/Footer";
 
 const CartDetails = () => {
   const dispatch = useDispatch();
@@ -78,7 +79,9 @@ const CartDetails = () => {
   };
 
   return (
-    <div className="container con  mt-2">
+
+    <>
+        <div className="container con  mt-2">
       <div className="row">
         {userCart?.length > 0 ? (
           <div className="col-lg-9 col-12">
@@ -298,7 +301,10 @@ const CartDetails = () => {
           </div>
         )}
       </div>
+     
     </div>
+    </>
+
   );
 };
 

@@ -25,6 +25,7 @@ import { MdDelete } from "react-icons/md";
 import { GrSubtractCircle } from "react-icons/gr";
 import { postUserOrder } from "../../redux/userOrderSlice";
 import { deleteWishList } from "../../redux/wishList";
+import Footer from "../../Common/Layout/Footer/Footer";
 
 const steps = [
   "User Details",
@@ -332,7 +333,9 @@ const CheckoutDetails = ({ userCarts }) => {
 
   console.log("cart", userCart);
   return (
-    <div className="container con  mt-2">
+    <>
+  
+     <div className="container con  mt-2">
       <div className="row">
         <div
           className="col-lg-9 col-12"
@@ -1123,7 +1126,10 @@ const CheckoutDetails = ({ userCarts }) => {
           )
         )}
       </div>
+    
     </div>
+    </>
+   
   );
 };
 

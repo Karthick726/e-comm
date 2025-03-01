@@ -1552,6 +1552,11 @@ gap: 30px;
 
 }
 
+.cons{
+  max-width: 1610px;
+  padding: 10px;
+}
+
 .rows{
   gap:20px
 }
@@ -1612,7 +1617,8 @@ gap: 30px;
   flex-direction: column;
   width: 78% !important;
   align-items: flex-end;
-  gap:10px
+  gap:10px;
+  max-width: 100%;
 
 }
 
@@ -2127,7 +2133,7 @@ button[disabled] {
    }
    .fullscreen {
     position: absolute;
-    top:4%;
+    top:16%;
     right: 0;
   left:0;
   height: 90vh !important;
@@ -2182,12 +2188,12 @@ button[disabled] {
   object-fit: contain;
 }
 
-.banner-area {
+/* .banner-area {
   position: absolute;
   top:10%;
   right: 0;
 left:0;
- }
+ } */
 
 
  .cart-btn {
@@ -2196,3 +2202,434 @@ left:0;
   width: 60px;
   height: 60px;
  }
+
+
+ .section_gap{
+  padding: 70px 0px;
+
+ }
+ 
+
+ .features-inner{
+  background-color: #ffffff;
+ }
+
+
+
+.single-features {
+  text-align: center;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.f-icon {
+  margin-bottom: 15px;
+}
+.single-features >h6 {
+  font-size: 18px;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 10px;
+}
+.single-features >p {
+  font-size: 14px;
+  color: #555;
+  margin-bottom: 0;
+}
+
+
+.cradss {
+  width: 100%; /* Make it flexible */
+  max-width: 350px !important; /* Ensures it does not exceed 350px */
+  margin: auto; /* Centers the card */
+}
+
+@media (max-width: 1200px) {
+  .cradss {
+    max-width: 300px !important; /* Reduce size for medium screens */
+  }
+}
+
+@media (max-width: 992px) {
+  .cradss {
+    max-width: 280px !important; /* Further reduce for smaller laptops */
+  }
+}
+
+@media (max-width: 768px) {
+
+
+  .css-1umw9bq-MuiSvgIcon-root{
+    width: 16px;
+    height: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .cradss {
+    max-width: 100% !important; /* Full width for mobile screens */
+    padding: 10px;
+  }
+}
+
+.css-hozvle {
+  max-width: auto !important;
+  text-align: center;
+}
+
+.i{
+  text-align:-webkit-center !important;
+}
+
+
+
+
+.features-areas {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 50px 0;
+}
+
+.certification-container {
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+  gap: 30px;
+  background-color: #ffffff;
+}
+
+.button-group {
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.option-button {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: #fff;
+  border: none;
+  padding: 20px 50px;
+  font-size: 16px;
+  font-weight: bold;
+  cursor: pointer;
+  border-radius: 10px;
+  box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease-in-out;
+  border-radius:0px 30px;
+}
+
+.option-button.active {
+  box-shadow: 5px 5px 10px rgba(255, 140, 27, 0.4);
+  border-right: 4px solid #FF8C1B;
+  border-bottom: 4px solid #FF8C1B;
+  background: rgba(255, 140, 27, 0.1);
+}
+
+.option-button .icon {
+  width: 30px;
+  height: 30px;
+}
+
+.image-container {
+  text-align: center;
+}
+
+.image-container .image {
+  width: 420px;
+  height: auto;
+  max-width: 100%;
+}
+
+.info-section {
+  max-width: 400px;
+}
+
+.info-section h2 {
+  font-size: 28px;
+  font-weight: bold;
+  color: #333;
+}
+
+.info-section p {
+  font-size: 16px;
+  color: #666;
+  margin-top: 10px;
+}
+
+.contact {
+  display: flex;
+  align-items: center;
+  margin-top: 15px;
+  gap: 10px;
+}
+
+.call-icon {
+  font-size: 24px;
+  color: #FF8C1B;
+}
+
+
+.up-image{
+  width: 215px;
+  height: 143px;
+  position: absolute;
+  left:31%;
+  transform: rotate(15deg);
+}
+
+
+
+/* Responsive Design */
+@media (max-width: 1024px) {
+  .certification-container {
+    flex-direction: column;
+    text-align: center;
+  }
+  
+  .button-group {
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .option-button {
+    padding: 12px 30px;
+    font-size: 14px;
+  }
+  
+  .info-section {
+    max-width: 100%;
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+
+  .certification-container {
+    flex-direction: column-reverse;
+    padding: 20px 0px;
+  }
+  .features-areas {
+    padding: 30px;
+  }
+  .css-j4tu3b-MuiButtonBase-root-MuiIconButton-root,.css-1nsgwsy-MuiButtonBase-root-MuiIconButton-root{
+    display: none !important;
+  }
+  .up-image{
+    display: none;
+  }
+  
+  .button-group {
+    flex-direction: column;
+  }
+
+  .image-container .image {
+    width: 300px;
+  }
+
+  .info-section h2 {
+    font-size: 24px;
+  }
+
+  .info-section p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .option-button {
+    padding: 10px 20px;
+    font-size: 13px;
+  }
+
+  .image-container .image {
+    width: 250px;
+  }
+
+  .info-section h2 {
+    font-size: 20px;
+  }
+}
+
+
+@media (max-width: 1024px) {
+  .css-1nsgwsy-MuiButtonBase-root-MuiIconButton-root{
+    left: 70% !important;
+  }
+
+  .css-j4tu3b-MuiButtonBase-root-MuiIconButton-root{
+    right:20% !important;
+  }
+
+}
+
+.css-1nsgwsy-MuiButtonBase-root-MuiIconButton-root{
+  position: absolute !important;
+  top:-35px !important;
+  left: 50% !important;
+  width: 37px !important;
+  height: 37px !important;
+  text-align: center !important;
+  background-color: #FF8C1B !important;
+
+}
+
+.css-j4tu3b-MuiButtonBase-root-MuiIconButton-root{
+  position: absolute !important;
+  top:-35px !important;
+  right:43% !important;
+  width: 37px !important;
+  height: 37px !important;
+  text-align: center !important;
+  background-color: #FF8C1B !important;
+}
+
+
+/* Container with the parallax effect */
+.parallax-container {
+  position: relative;
+  height: 550px; /* Adjust height as needed */
+  background-image: url("./Assets/Images/hello.jpg");
+  background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+
+.parallax-content {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: white;
+  z-index: 1;
+  background: rgba(0, 0, 0, 0.5); 
+  height: 550px;
+  width: 100%;
+  border-radius: 8px;
+}
+
+/* Button styles */
+.contact-button {
+  background-color: #FF8C1B; 
+  color: white;
+  border-bottom: 4px solid #283890; 
+  padding: 10px 20px;
+  font-size: 16px;
+  border-top: none;
+  border-left: none;
+  border-right: none;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+  overflow: hidden;
+}
+
+
+
+
+.contact-button:hover .contact-button{
+  background: #283890; 
+  color: #ffffff !important; /* Optional: Change text color on hover */
+}
+
+
+
+
+
+
+
+.ssfooter {
+  background-color: #192436;
+  }
+  
+  .footerstart {
+    color: white;
+    text-align: center;
+  }
+  
+  .footerstart .footthanks {
+    font-size: 25px;
+    font-weight: 600;
+    padding-top: 20px;
+    font-family: "Playfair Display", serif;
+  }
+  
+  .footerstart .footquestions {
+    font-size: 18px;
+    font-weight: 500;
+    font-family: "Playfair Display", serif;
+  }
+  
+  
+  .footerlinks h5 {
+    color: white;
+  }
+  
+  .companydetails {
+    display: flex;
+    justify-content: space-between;
+  }
+  
+  
+  .terms-privacy a {
+    color: #8c9da7;
+    text-decoration: none;
+    font-family: "Barlow", sans-serif;
+  }
+  
+  .footersections .quicklinks {
+    list-style-type: none;
+    padding-left: 0;
+  }
+  
+  .footersections .quicklinks li {
+    margin-top: 5px;
+  
+  }
+  
+  .footersections .quicklinks li a:hover{
+      transform: translateX(5px); 
+      transition: transform 0.3s ease;
+      color: #144076 !important;
+      
+  }
+  
+  .footaddress,
+  .footmail,
+  .footphone {
+    font-family: "Barlow", sans-serif;
+    color: #8c9da7;
+  }
+  
+  .footersections .quicklinks a {
+    text-decoration: none;
+  }
+  
+  .footabout,.about-description {
+    font-family: "Barlow", sans-serif;
+    color: #8c9da7;
+  }
+  
+  .shruiken {
+    width: 18px;
+    height: 18px;
+  }
+  
+  @media only screen and (min-width: 1024px) {
+    .footersections {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+  }
+  

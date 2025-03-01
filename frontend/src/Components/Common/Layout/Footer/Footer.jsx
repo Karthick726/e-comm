@@ -5,35 +5,28 @@ import Client from "../../Client/Client";
 import { FaLocationDot } from "react-icons/fa6";
 import { MdEmail } from "react-icons/md";
 import { TbPhoneCall } from "react-icons/tb";
-import toast from 'react-hot-toast';
+import toast from "react-hot-toast";
 import client from "../../Client/Client";
 import { FaSquareFull } from "react-icons/fa";
 
 const Footer = () => {
-   const [contactInfo, setContactInfo] = useState({
-      id: "",
-      phoneIndia: "",
-      whatsapp: "",
-      email: "",
-      address:""
-    });
+  const [contactInfo, setContactInfo] = useState({
+    id: "",
+    phoneIndia: "",
+    whatsapp: "",
+    email: "",
+    address: "",
+  });
 
-  const [serviceDetail,setServiceDetails]=useState([])
-
-
-
-  
-    
   useEffect(() => {
     fecthContact();
-    getService()
   }, []);
 
   const fecthContact = async () => {
-    toast.dismiss()
+    toast.dismiss();
     try {
-      const response = await client.get("/contact/get-contact",{
-        withCredentials:true
+      const response = await client.get("/contact/get-contact", {
+        withCredentials: true,
       });
       if (response.status === 200) {
         const data = response.data[0];
@@ -43,10 +36,10 @@ const Footer = () => {
             ...data,
             id: data._id,
             email: data.email,
-            address:data.address,
-          
+            address: data.address,
+
             phoneIndia: data.phoneIndia,
-           
+
             whatsapp: data.whatsapp,
           };
         };
@@ -64,132 +57,107 @@ const Footer = () => {
     }
   };
 
-
-  const getService=async()=>{
-    try {
-      const response = await client.get("/service/service",{
-        withCredentials:true
-      });
-      if (response.status === 200) {
-        const data = response.data;
-        console.log(data);
-        setServiceDetails(data)
-      }
-    } catch (err) {
-      if (err.response && err.response.status === 401) {
-        toast.error("Login again");
-      } else {
-        toast.error("Failed to get service details");
-      }
-    }
- }
   return (
     <>
       <footer className="ssfooter">
-        <div className="container con project-header1">
-          
-
-
+        <div className="container cons project-header1">
           <div className="footerlinks">
             <div className="row">
-              <div className="col-md-3">
+              <div className="col-md-4">
                 {/* <img src="" /> */}
-                <h5  className="about-service-title">About Us</h5>
+                <h5 className="about-service-title">About Us</h5>
                 <p className=" about-description">
-                United PVGAS Pvt Ltd delivers innovative solutions for the industrial sector, enhancing efficiency, reducing lead times, and optimizing performance across automation and infrastructure.
-                </p>
+                  At ShopCart, we redefine online shopping with quality,
+                  security, and speed. Enjoy authentic products, secure
+                  payments, and fast delivery. Our commitment to customer
+                  satisfaction ensures seamless shopping with 24/7 support.
+                  Choose ShopCart for a trusted, hassle-free shopping
+                  experience. Shop smart, shop with confidence!
+                </p>{" "}
               </div>
 
-              <div className="col-md-3 footersections">
-                <h5  className="about-service-title">Quick Links</h5>
+              <div className="col-md-4 footersections">
+                <h5 className="about-service-title">Quick Links</h5>
                 <ul className="quicklinks">
                   <li>
-                  <FaSquareFull style={{ color: "#FF5317",
-                            fontSize: "10px",
-                            marginRight:"10px"
-
-                  }}/>
-                    <NavLink to="/"  className=" about-description">Home</NavLink>
+                    <FaSquareFull
+                      style={{
+                        color: "#FF5317",
+                        fontSize: "10px",
+                        marginRight: "10px",
+                      }}
+                    />
+                    <NavLink to="/" className=" about-description">
+                      Home
+                    </NavLink>
                   </li>
+            
+             
                   <li>
-                  <FaSquareFull style={{ color: "#FF5317",
-                            fontSize: "10px",
-                            marginRight:"10px"
-
-                  }}/>
-                    <NavLink to="/about-us" className=" about-description">About Us</NavLink>
+                    <FaSquareFull
+                      style={{
+                        color: "#FF5317",
+                        fontSize: "10px",
+                        marginRight: "10px",
+                      }}
+                    />
+                    <NavLink to="/products" className=" about-description">
+                      Products
+                    </NavLink>
                   </li>
-                  <li>
-                    <FaSquareFull style={{ color: "#FF5317",
-                            fontSize: "10px",
-                            marginRight:"10px"
 
-                  }}/>
-                    <NavLink to="/service" className=" about-description">Services</NavLink>
+                  <li>
+                    <FaSquareFull
+                      style={{
+                        color: "#FF5317",
+                        fontSize: "10px",
+                        marginRight: "10px",
+                      }}
+                    />
+                    <NavLink to="/contact-us" className=" about-description">
+                      Contact
+                    </NavLink>
                   </li>
-                  <li>
-                    <FaSquareFull style={{ color: "#FF5317",
-                            fontSize: "10px",
-                            marginRight:"10px"
 
-                  }}/>
-                    <NavLink to="/projects" className=" about-description">Projects</NavLink>
-                  </li>
-                 
-              
                   <li>
-                    <FaSquareFull style={{ color: "#FF5317",
-                            fontSize: "10px",
-                            marginRight:"10px"
-
-                  }}/>
-                    <NavLink to="/contact-us" className=" about-description">Contact</NavLink>
+                    <FaSquareFull
+                      style={{
+                        color: "#FF5317",
+                        fontSize: "10px",
+                        marginRight: "10px",
+                      }}
+                    />
+                    <NavLink to="/account" className=" about-description">
+                      Account
+                    </NavLink>
                   </li>
                 </ul>
               </div>
 
-              <div className="col-md-3 footersections">
-                <h5  className="about-service-title" style={{
-                }}>Our Services</h5>
+              <div className="col-md-4 footersections">
+                <h5 className="about-service-title">Reach Us</h5>
                 <ul className="quicklinks">
-                  {
-                    serviceDetail.slice(0,6).map((item,index)=>{
-                      return(
-                        <li key={index}>
-                           <FaSquareFull style={{ color: "#FF5317",
-                            fontSize: "10px",
-                            marginRight:"10px"
-
-                  }}/>
-                          <Link to={`/service `} className=" about-description">{item.title}</Link>
-                        </li>
-                      )
-                    })
-                  }
-                 
-                </ul>
-              </div>
-
-              <div className="col-md-3 footersections">
-                <h5  className="about-service-title">Reach Us</h5>
-                <ul className="quicklinks">
-                  {contactInfo.address !=="" > 0 ? (
+                  {contactInfo.address !== "" > 0 ? (
                     <>
                       <li
                         className="footaddress "
                         style={{
                           display: "flex",
                           gap: "14px",
-                          flexWrap:"wrap"
+                          flexWrap: "wrap",
                         }}
                       >
                         <span>
-                          <FaLocationDot style={{
-                            color: "#FF5317",
-                            fontSize: "18px",
-                          }} />
+                          <FaLocationDot
+                            style={{
+                              color: "#FF5317",
+                              fontSize: "18px",
+                            }}
+                          />
                         </span>
-                        <span className=" about-description">{contactInfo.address}</span>
+                        <span className=" about-description">
+                          {contactInfo.address}
+                        </span>
                       </li>
                       <li
                         className="footmail"
@@ -202,12 +170,16 @@ const Footer = () => {
                         }}
                       >
                         <span>
-                          <MdEmail style={{
-                            color: "#FF5317",
-                            fontSize: "18px",
-                          }} />
+                          <MdEmail
+                            style={{
+                              color: "#FF5317",
+                              fontSize: "18px",
+                            }}
+                          />
                         </span>
-                        <span className=" about-description">{contactInfo.email}</span>
+                        <span className=" about-description">
+                          {contactInfo.email}
+                        </span>
                       </li>
                       <li
                         className="footphone"
@@ -220,12 +192,16 @@ const Footer = () => {
                         }}
                       >
                         <span>
-                          <TbPhoneCall style={{
-                            color: "#FF5317",
-                            fontSize: "18px",
-                          }} />
+                          <TbPhoneCall
+                            style={{
+                              color: "#FF5317",
+                              fontSize: "18px",
+                            }}
+                          />
                         </span>
-                        <span className=" about-description">{contactInfo.phoneIndia}</span>
+                        <span className=" about-description">
+                          {contactInfo.phoneIndia}
+                        </span>
                       </li>
                     </>
                   ) : (
@@ -237,21 +213,6 @@ const Footer = () => {
           </div>
 
           <hr style={{ color: "white" }} />
-
-          <div className="companydetails">
-            <div className="copyrights">
-              <p style={{ color: "white" }}>
-                Developed by <a href="https://hellowtec.com/" target="_blank" style={{
-                  color: "#FF5317",
-                  textDecoration:"none"
-                }} >Hello Technologies</a>
-              </p>
-            </div>
-            <div className="terms-privacy">
-              <NavLink to="/terms">Terms of Service</NavLink> &nbsp;
-              <NavLink to="/terms">Privacy Policy</NavLink>
-            </div>
-          </div>
         </div>
       </footer>
     </>
