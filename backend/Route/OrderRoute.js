@@ -1,6 +1,6 @@
 const express=require("express");
-const { VerifyToken } = require("./VerifyToken/VerifyToken");
-const { postOrder, getOrder, cancleOrder } = require("../Contorller/userOrderContorller");
+const { VerifyToken,authorize } = require("./VerifyToken/VerifyToken");
+const { postOrder, getOrder, cancleOrder, getFullOrder,updateuserStatus } = require("../Contorller/userOrderContorller");
 
 const router=express.Router();
 
@@ -12,8 +12,9 @@ router.post("/cancel-order",VerifyToken,cancleOrder);
 router.get("/get-userorder",VerifyToken,getOrder);
 
 
+router.get("/get-fullorder",VerifyToken,authorize(["admin"]),getFullOrder)
 
-
+router.post("/submit",VerifyToken,authorize(["admin"]),updateuserStatus)
 
 
 module.exports=router;

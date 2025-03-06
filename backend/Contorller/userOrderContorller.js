@@ -136,4 +136,105 @@ exports.cancleOrder=async(req,res)=>{
 
 
 
+exports.getFullOrder=async(req,res)=>{
+  try{
 
+    const fullOrder = await orderModel.aggregate([
+      {
+        $lookup: {
+          from: "users", 
+          localField: "userId",
+          foreignField: "_id",
+          as: "user"
+        }
+      },
+      { $unwind: "$user" }, 
+      {
+        $lookup: {
+          from: "products",
+          localField: "orderItems.ProductId",
+          foreignField: "_id",
+          as: "product_Info"
+        }
+      },
+      {
+        $project: {
+          _id: 1,
+          userDetails: {
+            username: "$user.username",
+            email: "$user.email"
+          },
+          orderItems: {
+            $map: {
+              input: "$orderItems",
+              as: "item",
+              in: {
+                ProductId: "$$item.ProductId",
+                quantity: "$$item.quantity",
+                price: "$$item.price",
+                orderStatus: "$$item.orderStatus",
+                address: "$$item.address",
+                placedAt: "$$item.placedAt",
+                trackId:"$$item.trackId",
+                _id:"$$item._id",
+                cancelDetails: "$$item.cancelDetails",
+                productDetails: {
+                  $arrayElemAt: [
+                    {
+                      $filter: {
+                        input: "$product_Info",
+                        as: "product",
+                        cond: { $eq: ["$$product._id", "$$item.ProductId"] }
+                      }
+                    },
+                    0
+                  ]
+                }
+              }
+            }
+          }
+        }
+      }
+    ]);
+    console.log(fullOrder)
+
+res.status(200).json(fullOrder)
+
+
+
+  }catch(err){
+    console.log(err)
+    res.status(500).json({ message: "Server Error" });
+  }
+
+}
+
+
+exports.updateuserStatus=async(req,res)=>{
+  try{
+
+   const {filter,trackId,productId,checkId}=req.body;
+   const userObjectId = new mongoose.Types.ObjectId(productId);
+    console.log(userObjectId)
+     const order=await orderModel.findOne({_id:checkId});
+
+     if(!order){
+      return res.status(404).json({ message: "User order not found" });
+      }
+
+      const productFind = order.orderItems.find((item) => item._id.toString() === productId);
+
+       productFind.orderStatus=filter;
+       productFind.trackId=trackId;
+       
+       const newuser = await order.save()
+       res.status(200).json({
+        message: "Order update successfully",
+      })
+
+  
+  }catch(err){
+    console.log(err)
+    res.status(500).json({ message: "Server Error" });
+  }
+}

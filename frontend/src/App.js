@@ -20,6 +20,7 @@ import WishList from "./Components/Page/WishList/WishList";
 import { fetchaddToCart } from "./Components/redux/addtoCardSlice";
 import SingleProducts from "./Components/Page/Products/SingleProducts/SingleProducts";
 import CheckOut from "./Components/Page/CheckOut/CheckOut";
+import Order from "./Components/Page/AdminDashboard/Pages/Order";
 
 const Home = lazy(() => import("./Components/Page/Home/Home"));
 const NotFound = lazy(() => import("./Components/Common/NotFound/NotFound"));
@@ -159,6 +160,15 @@ function App() {
             element={
               <ProtectedRoute role="admin">
                 <Products />
+              </ProtectedRoute>
+            }
+          />
+
+<Route
+            path="/admin/order"
+            element={
+              <ProtectedRoute role="admin">
+                <Order />
               </ProtectedRoute>
             }
           />

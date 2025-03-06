@@ -36,6 +36,9 @@ const orderModel = new mongoose.Schema({
         type: String,
         required: true,
       },
+      trackId:{
+        type:String
+      },
       placedAt: { type: Date, default: Date.now },
     },
   ],

@@ -22,7 +22,7 @@ const Sidebar = ({ open, toggleSidebar, setAdmin }) => {
         <ul className="sidebar-nav" id="sidebar-nav">
           <li className="nav-item">
             <Link
-              className={`nav-link ${isActive("/") ? "active" : "collapsed"}`}
+              className={`nav-link ${isActive("/admin") ? "active" : "collapsed"}`}
               to="/admin"
             >
               <i className="bi bi-grid" />
@@ -62,41 +62,20 @@ const Sidebar = ({ open, toggleSidebar, setAdmin }) => {
           </li>
 
           <li className="nav-heading">Manage</li>
+         
           <li className="nav-item">
             <Link
               className={`nav-link ${
-                isActive("/manage/service") ? "active" : "collapsed"
+                isActive("/admin/order") ? "active" : "collapsed"
               }`}
-              to="/manage/service"
-            >
-              <i class="bi bi-door-open"></i>
-              <span>Manage Service</span>
-            </Link>
-          </li>
-
-          <li className="nav-item">
-            <Link
-              className={`nav-link ${
-                isActive("/manage/booking-details") ? "active" : "collapsed"
-              }`}
-              to="/manage/booking-details"
+              to="/admin/order"
             >
               <i class="bi bi-calendar-check"></i>
-              <span>Booking Details</span>
+              <span>User Order</span>
             </Link>
           </li>
 
-          <li className="nav-item">
-            <Link
-              className={`nav-link ${
-                isActive("/manage/user-contact") ? "active" : "collapsed"
-              }`}
-              to="/manage/user-contact"
-            >
-              <i class="bi bi-person-circle"></i>
-              <span>User Contact</span>
-            </Link>
-          </li>
+   
 
           <li className="nav-item">
             <Link

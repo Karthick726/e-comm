@@ -8,6 +8,8 @@ import { FaUserCircle, FaBoxOpen } from 'react-icons/fa';
 import profile from '../../../Assets/Images/profile.png'
 import { UserContext } from "../Home/UserLogin/UserContext";
 import { useNavigate } from "react-router-dom";
+import LogoutIcon from "@mui/icons-material/Logout";
+import { Button } from "@mui/material";
 import Orders from "./Orders";
 
 const UserProfile = () => {
@@ -15,7 +17,7 @@ const UserProfile = () => {
   const navigate=useNavigate()
   const { user } = useSelector((state) => state.user);
   const [activeTab, setActiveTab] = useState("profile");
-const { userDetails } = useContext(UserContext);
+const { userDetails,logout } = useContext(UserContext);
 
   useEffect(() => {
     dispatch(fetchUser());
@@ -30,6 +32,14 @@ const { userDetails } = useContext(UserContext);
       window.location.reload();
     }
   }, [userDetails, navigate]);
+
+
+  const handleLogout = () => {
+    console.log("hii")
+    logout();
+  
+    navigate("/");
+  };
 
   return (
  
@@ -55,6 +65,25 @@ const { userDetails } = useContext(UserContext);
       >
         <FaBoxOpen color="blue" /> My Orders
       </li>
+      <li>
+      <Button
+          variant="contained"
+          color="error"
+          style={{
+            marginTop: "20px",
+          }}
+          onClick={handleLogout}
+        >
+          <LogoutIcon />
+          <span
+            style={{
+              marginLeft: "5px",
+            }}
+          >
+            Logout
+          </span>
+        </Button>
+      </li>
     </ul>
   </aside>
 
@@ -64,6 +93,7 @@ const { userDetails } = useContext(UserContext);
     {activeTab === "orders" && (
      <Orders/>
     )}
+     
   </main>
 </div>
     </div>
