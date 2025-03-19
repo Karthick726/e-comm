@@ -140,16 +140,7 @@ const Header = () => {
               Products
             </NavLink>
           </li>
-          <li>
-            <NavLink to="/about-us" className="nav-link">
-              About Us
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/contact-us" className="nav-link">
-              Contact
-            </NavLink>
-          </li>
+
           <li>
             <NavLink to="/account" className="nav-link">
               Account
